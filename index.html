@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Les 25 points pour une présentation PowerPoint accessible, avec exemples, outils de vérification et grille d’évaluation.">
+<title>PowerPoint accessible</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap">
+<style>
+/* Mise en page : une colonne de lecture ; chaque règle = texte à gauche,
+   diapositive d'exemple à droite (empilés sur téléphone). Palette Uni'Access. */
+:root {
+  --fond: #FFFFFF;
+  --surface: #F4F7FB;
+  --texte: #1A1A1A;
+  --doux: #46505A;
+  --titre: #10243F;
+  --bleu: #005AA6;
+  --bord: #C9D4E0;
+  --accent: #F6992F;          /* décoratif uniquement */
+  --non: #9B1B54; --non-fond: #FBE6EF;
+  --oui: #1E6B2C; --oui-fond: #E2F1E4;
+  --focus: #B35A00;
+  /* Les diapositives d'exemple restent claires dans les deux thèmes :
+     elles représentent un support projeté. */
+  --d-fond: #FFFFFF; --d-texte: #1A1A1A; --d-titre: #10243F; --d-bord: #C9D4E0; --d-doux: #5A6470; --d-accent: #005AA6;
+  --police: 'Open Sans', Verdana, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --pas: 8px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fond: #0F1722; --surface: #172233; --texte: #E8EDF3; --doux: #B3BECB; --titre: #F2F5F9;
+    --bleu: #7DB6EE; --bord: #2E3D52; --non: #F29BBD; --non-fond: #3A1A28; --oui: #8FD39B; --oui-fond: #16301C;
+    --focus: #FFB366; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --fond: #0F1722; --surface: #172233; --texte: #E8EDF3; --doux: #B3BECB; --titre: #F2F5F9;
+  --bleu: #7DB6EE; --bord: #2E3D52; --non: #F29BBD; --non-fond: #3A1A28; --oui: #8FD39B; --oui-fond: #16301C;
+  --focus: #FFB366; color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: var(--police); font-size: 1.0625rem; line-height: 1.6;
+  color: var(--texte); background: var(--fond);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { color: var(--titre); line-height: 1.25; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: var(--bleu); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+.evitement { position: absolute; left: -9999px; top: 8px; background: var(--fond); color: var(--bleu); padding: 10px 16px; font-weight: 700; border: 2px solid var(--bleu); z-index: 5; }
+.evitement:focus { left: max(16px, env(safe-area-inset-left, 0px)); }
+
+.page { max-width: 68rem; margin: 0 auto; padding-block: calc(var(--pas) * 6) calc(var(--pas) * 10); }
+
+/* --- en-tête --- */
+.tete { display: grid; gap: calc(var(--pas) * 2); max-width: 46rem; }
+.marque { font-size: .85rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--bleu); }
+h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01em; }
+.chapo { font-size: 1.15rem; color: var(--doux); max-width: 40rem; }
+
+.bilan {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--pas) calc(var(--pas) * 3);
+  margin-top: calc(var(--pas) * 4); padding: calc(var(--pas) * 2) calc(var(--pas) * 2.5);
+  background: var(--surface); border: 1px solid var(--bord); border-radius: 18px 7px 16px 9px;
+}
+.bilan-compte { font-weight: 700; font-variant-numeric: tabular-nums; }
+.jauge { flex: 1 1 10rem; height: 10px; background: var(--fond); border: 1px solid var(--bord); border-radius: 6px; overflow: hidden; min-width: 0; }
+.jauge span { display: block; height: 100%; width: 0; background: var(--bleu); transition: width .3s ease; }
+.bouton {
+  font: inherit; font-size: .95rem; font-weight: 600; padding: 8px 16px; cursor: pointer;
+  color: var(--bleu); background: var(--fond); border: 2px solid var(--bleu); border-radius: 14px 6px 12px 7px;
+}
+.bouton:hover { background: var(--surface); }
+
+.sommaire { margin-top: calc(var(--pas) * 4); }
+.sommaire h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: .06em; color: var(--doux); margin-bottom: var(--pas); }
+.sommaire ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); gap: var(--pas); padding: 0; margin: 0; list-style: none; }
+.sommaire a {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; height: 100%;
+  padding: 12px 14px; text-decoration: none; font-weight: 700; color: var(--titre);
+  border: 1px solid var(--bord); border-radius: 14px 6px 12px 7px; background: var(--fond);
+}
+.sommaire a:hover { border-color: var(--bleu); }
+.som-lieu { flex-basis: 100%; font-size: .78rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--doux); }
+.som-nb { font-weight: 600; color: var(--doux); font-variant-numeric: tabular-nums; }
+.som-nb::before { content: '· '; }
+
+/* --- groupes et règles --- */
+.groupe { margin-top: calc(var(--pas) * 9); scroll-margin-top: 16px; }
+.groupe-lieu { font-size: .85rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--bleu); }
+.groupe h2 { font-size: clamp(1.5rem, 3.4vw, 2rem); margin-top: 4px; }
+.groupe h2::after { content: ''; display: block; width: 48px; height: 4px; margin-top: 12px; border-radius: 2px; background: var(--accent); }
+
+.regles { list-style: none; padding: 0; margin: calc(var(--pas) * 3) 0 0; display: grid; }
+.regle {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: calc(var(--pas) * 2) calc(var(--pas) * 5);
+  align-items: start; padding-block: calc(var(--pas) * 4); border-top: 1px solid var(--bord);
+  scroll-margin-top: 16px;
+}
+@media (max-width: 760px) { .regle { grid-template-columns: minmax(0, 1fr); } }
+.regle-texte { display: grid; gap: var(--pas); min-width: 0; }
+.regle-tete { display: flex; align-items: flex-start; gap: 12px; }
+.regle h3 { font-size: 1.25rem; }
+.regle h3 label { cursor: pointer; }
+.num { color: var(--doux); font-variant-numeric: tabular-nums; }
+.coche {
+  flex: none; width: 26px; height: 26px; margin: 1px 0 0; cursor: pointer; accent-color: var(--bleu);
+}
+.resume { font-weight: 700; color: var(--texte); }
+.pourquoi { color: var(--doux); max-width: 34rem; }
+.etoile { font-size: .9rem; font-weight: 600; color: var(--titre); }
+.etoile span { color: var(--focus); }
+.regle.est-faite h3 label { text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--bleu); }
+
+/* --- exemples --- */
+.exemple { margin: 0; min-width: 0; }
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 460px) { .duo { grid-template-columns: 1fr; } }
+.duo-etq { font-size: .85rem; font-weight: 700; margin-bottom: 6px; display: flex; gap: 6px; align-items: center; }
+.duo-bloc--non .duo-etq { color: var(--non); }
+.duo-bloc--oui .duo-etq { color: var(--oui); }
+.duo-etq span { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; font-size: .75rem; }
+.duo-bloc--non .duo-etq span { background: var(--non-fond); }
+.duo-bloc--oui .duo-etq span { background: var(--oui-fond); }
+
+.diapo, .m-doc {
+  font-family: Arial, Verdana, sans-serif; font-size: .82rem; line-height: 1.4;
+  color: var(--d-texte); background: var(--d-fond); border: 1px solid var(--d-bord);
+  border-radius: 6px; padding: 12px 14px; min-height: 9.5rem; position: relative;
+  box-shadow: 0 1px 0 var(--d-bord);
+}
+.m-dtitre { font-weight: 700; font-size: 1.05em; color: var(--d-titre); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px solid var(--d-bord); }
+.m-corps { display: grid; gap: 6px; }
+.m-ul, .m-ol { margin: 0; padding: 0 0 0 1.1em; display: grid; gap: 4px; }
+.m-ol { list-style: none; padding: 0; }
+.m-ol li { display: flex; gap: 8px; align-items: baseline; }
+.m-rond { flex: none; display: inline-grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: var(--d-accent); color: var(--d-fond); font-weight: 700; font-size: .85em; }
+.m-champ { display: grid; grid-template-columns: 7.2em minmax(0, 1fr); gap: 8px; }
+.m-champ span { overflow-wrap: anywhere; }
+.m-champ span { font-weight: 700; color: var(--d-accent); }
+.m-pied { position: absolute; right: 12px; bottom: 6px; font-size: .78em; color: var(--d-doux); font-variant-numeric: tabular-nums; }
+.diapo:has(.m-pied) { padding-bottom: 26px; }
+.m-ariane { font-size: .75em; color: var(--d-doux); margin-bottom: 6px; }
+.m-legende { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.m-legende span { display: inline-flex; align-items: center; gap: 6px; }
+.m-pastille { display: inline-grid; place-items: center; width: 1.3em; height: 1.3em; border-radius: 4px; font-style: normal; font-weight: 700; color: var(--d-fond); font-size: .85em; }
+.m-vert { background: #2E7D32; } .m-rouge { background: #C62828; }
+.m-video { display: grid; place-items: center; gap: 0; aspect-ratio: 16 / 7; max-width: 100%; background: #1B2633; border-radius: 4px; position: relative; color: var(--d-fond); }
+.m-play { font-size: 1.6em; opacity: .8; }
+.m-st { position: absolute; left: 8%; right: 8%; bottom: 8px; background: rgba(0, 0, 0, .78); color: var(--d-fond); text-align: center; padding: 3px 6px; font-size: .82em; border-radius: 3px; }
+.m-images { display: grid; gap: 6px; }
+.m-images--4 { grid-template-columns: 1fr 1fr; }
+.m-images span { display: block; aspect-ratio: 16 / 7; max-width: 100%; border-radius: 4px; background: linear-gradient(135deg, #C9D9EC, #E6EEF7); }
+.m-images--1 span { aspect-ratio: 16 / 6; }
+.m-marge { display: grid; grid-template-columns: 1fr 34%; gap: 10px; }
+.m-notes { border-left: 2px dashed var(--d-bord); padding-left: 8px; display: grid; gap: 10px; align-content: start; }
+.m-notes span { font-size: .78em; font-weight: 700; color: var(--d-doux); }
+.m-notes i { display: block; height: 1px; background: var(--d-bord); margin-top: 8px; }
+.m-doc { border-left: 4px solid var(--d-accent); }
+.m-mail { font-family: Arial, Verdana, sans-serif; font-size: .82rem; line-height: 1.4; color: var(--d-texte); background: var(--d-fond); border: 1px solid var(--d-bord); border-radius: 6px; overflow: hidden; }
+.m-mail-tete { background: #EEF2F7; padding: 8px 12px; display: grid; gap: 2px; border-bottom: 1px solid var(--d-bord); }
+.m-mail-l { display: grid; grid-template-columns: 3.6em minmax(0, 1fr); gap: 6px; }
+.m-mail-l span { color: var(--d-doux); font-weight: 700; }
+.m-mail .m-corps { padding: 10px 12px; }
+.m-support { font-size: .75em; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--d-doux); margin-bottom: 6px; }
+.m-titre { font-weight: 700; color: var(--d-titre); }
+.m-doc blockquote { margin: 0; font-style: italic; font-size: 1.05em; }
+
+/* ce qu'il ne faut pas faire */
+.diapo--serif, .diapo--serif .m-dtitre { font-family: 'Times New Roman', Georgia, serif; }
+.diapo--fond-charge {
+  background-color: #F1E3F7;
+  background-image: repeating-linear-gradient(45deg, rgba(196, 92, 160, .45) 0 7px, transparent 7px 16px),
+                    radial-gradient(circle at 30% 40%, rgba(255, 196, 0, .55) 0 14px, transparent 15px),
+                    radial-gradient(circle at 75% 70%, rgba(0, 170, 200, .5) 0 18px, transparent 19px);
+  background-size: auto, 60px 60px, 70px 70px;
+}
+.diapo--petit .m-corps { font-size: .6em; }
+.diapo--faible-contraste, .diapo--faible-contraste .m-dtitre { color: #D2D9E0; border-color: #E8ECF0; }
+.diapo--dense .m-corps { font-size: .7em; line-height: 1.25; text-align: justify; }
+.m-trip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.m-mini { border: 1px solid var(--d-bord); border-radius: 4px; padding: 6px; background: var(--d-fond); min-height: 6.5rem; font-family: Arial, sans-serif; }
+.m-mini span { display: block; font-weight: 700; font-size: .68rem; color: var(--d-titre); border-bottom: 2px solid var(--d-accent); padding-bottom: 3px; margin-bottom: 6px; overflow-wrap: anywhere; }
+.m-mini i { display: block; height: 4px; border-radius: 2px; background: var(--d-bord); margin-top: 6px; }
+.m-mini i + i { width: 70%; }
+.m-trip--inc .m-mini:nth-child(1) { background: #FFF6C9; }
+.m-trip--inc .m-mini:nth-child(2) { background: #1B2633; }
+.m-trip--inc .m-mini:nth-child(2) span { color: #FFFFFF; font-family: Georgia, serif; border-color: #F6992F; text-align: center; }
+.m-trip--inc .m-mini:nth-child(3) span { font-family: 'Comic Sans MS', 'Trebuchet MS', cursive; color: #C62828; border-color: #C62828; text-align: right; }
+
+.verifier { margin-top: var(--pas); padding: 12px 14px; background: var(--surface); border: 1px solid var(--bord); border-radius: 14px 6px 12px 7px; }
+.verifier-titre { font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--bleu); margin-bottom: 6px; }
+.verifier ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.outil { display: grid; grid-template-columns: 6.2rem minmax(0, 1fr); gap: 10px; font-size: .95rem; }
+.outil-etq { font-size: .78rem; font-weight: 700; color: var(--doux); padding-top: 3px; }
+@media (max-width: 460px) { .outil { grid-template-columns: minmax(0, 1fr); gap: 0; } }
+.outil--widget { display: block; }
+.contraste { display: grid; gap: 8px; padding-top: 6px; border-top: 1px dashed var(--bord); }
+.contraste-titre { font-weight: 700; font-size: .95rem; }
+.contraste-champs { display: flex; flex-wrap: wrap; gap: 10px 20px; }
+.contraste-champs label { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: .95rem; }
+.contraste-champs input { width: 44px; height: 32px; padding: 0; border: 1px solid var(--bord); border-radius: 6px; background: var(--fond); cursor: pointer; }
+.contraste-apercu { padding: 10px 12px; border-radius: 6px; border: 1px solid var(--bord); font-size: 1.1rem; font-family: Arial, Verdana, sans-serif; }
+.contraste-resultat { font-weight: 700; font-variant-numeric: tabular-nums; }
+.contraste-resultat .ok { color: var(--oui); } .contraste-resultat .ko { color: var(--non); }
+
+/* --- sommaire façon traitement de texte --- */
+.toc { margin-top: calc(var(--pas) * 5); max-width: 46rem; }
+.toc h2 { font-size: 1.4rem; margin-bottom: calc(var(--pas) * 2); }
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc > ol > li + li { margin-top: calc(var(--pas) * 1.5); }
+.toc a { display: flex; align-items: baseline; gap: 8px; color: var(--texte); text-decoration: none; padding: 3px 0; }
+.toc a:hover .toc-t, .toc a:focus-visible .toc-t { text-decoration: underline; color: var(--bleu); }
+.toc-partie { font-weight: 700; color: var(--titre); }
+.toc-t { min-width: 0; }
+.toc-partie::after { content: none; }
+.toc a .toc-p, .toc li li a::after { margin-left: auto; }
+.toc-partie .toc-t { flex: 0 1 auto; }
+.toc-partie { position: relative; }
+.toc-partie .toc-p { flex: none; font-weight: 600; color: var(--doux); font-size: .92rem; font-variant-numeric: tabular-nums; }
+.toc-partie .toc-t::after, .toc li li .toc-t::after { content: ''; }
+.toc a .toc-fil { flex: 1 1 2rem; border-bottom: 2px dotted var(--bord); transform: translateY(-4px); min-width: 1rem; }
+.toc li li a { padding-left: 1.8rem; font-size: .98rem; }
+.toc-n { flex: none; min-width: 1.6rem; color: var(--doux); font-variant-numeric: tabular-nums; }
+.toc-partie .toc-n { color: var(--bleu); }
+
+/* --- grille d'évaluation --- */
+.grille { margin-top: calc(var(--pas) * 9); scroll-margin-top: 16px; }
+.grille h2 { font-size: clamp(1.5rem, 3.4vw, 2rem); margin-top: 4px; }
+.grille h2::after { content: ''; display: block; width: 48px; height: 4px; margin-top: 12px; border-radius: 2px; background: var(--accent); }
+.grille-intro { margin-top: calc(var(--pas) * 2); color: var(--doux); max-width: 40rem; }
+.table-boite { overflow-x: auto; margin-top: calc(var(--pas) * 3); border: 1px solid var(--bord); border-radius: 14px 6px 12px 7px; }
+.grille table { width: 100%; border-collapse: collapse; min-width: 46rem; }
+.grille th, .grille td { padding: 10px 12px; border-bottom: 1px solid var(--bord); text-align: left; }
+.grille thead th { background: var(--surface); font-size: .9rem; position: sticky; top: 0; }
+.grille thead th:not(:first-child), .grille td { text-align: center; width: 7.5rem; }
+.grille tbody th { font-weight: 600; }
+.grille-partie th { background: var(--surface); color: var(--bleu); font-size: .85rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.grille td input { width: 22px; height: 22px; accent-color: var(--bleu); cursor: pointer; }
+.grille tr.note-0 th { color: var(--non); } .grille tr.note-2 th { color: var(--oui); }
+.note { display: inline-grid; place-items: center; width: 1.5em; height: 1.5em; margin-right: 4px; border-radius: 50%; background: var(--bleu); color: var(--fond); font-weight: 700; font-size: .85em; }
+.score { margin-top: calc(var(--pas) * 3); padding: calc(var(--pas) * 2.5); background: var(--surface); border: 1px solid var(--bord); border-radius: 18px 7px 16px 9px; display: grid; gap: var(--pas); }
+.score-titre { font-size: .85rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--bleu); }
+.score-valeur { font-size: 2rem; font-weight: 800; color: var(--titre); font-variant-numeric: tabular-nums; }
+.score-pct { font-size: 1.2rem; font-weight: 700; color: var(--doux); margin-left: 8px; }
+.score-detail { color: var(--doux); }
+
+.visuellement-cache { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* --- structure numérotée, contexte, glossaire --- */
+.partie { margin-top: calc(var(--pas) * 9); scroll-margin-top: 16px; }
+.partie > h2 { font-size: clamp(1.7rem, 4vw, 2.3rem); }
+.partie > h2::after { content: ''; display: block; width: 56px; height: 4px; margin-top: 12px; border-radius: 2px; background: var(--accent); }
+.sec-n { color: var(--bleu); }
+.groupe { margin-top: calc(var(--pas) * 6); }
+.groupe h3 { font-size: clamp(1.35rem, 3vw, 1.7rem); margin-top: 4px; }
+.regle h4 { font-size: 1.2rem; color: var(--titre); line-height: 1.3; margin: 0; text-wrap: balance; }
+.contexte { display: grid; gap: calc(var(--pas) * 2); margin-top: calc(var(--pas) * 3); max-width: 44rem; }
+.contexte cite { font-style: italic; }
+.glossaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr)); gap: calc(var(--pas) * 2) calc(var(--pas) * 4); margin: calc(var(--pas) * 3) 0 0; }
+.gl-terme { border-top: 1px solid var(--bord); padding-top: 10px; }
+.gl-terme dt { font-weight: 700; color: var(--titre); }
+.gl-terme dd { margin: 4px 0 0; color: var(--doux); }
+.grille-titre-pres { display: grid; gap: 6px; margin-top: calc(var(--pas) * 3); max-width: 36rem; }
+.grille-titre-pres label { font-weight: 700; }
+.grille-titre-pres input, .com {
+  font: inherit; font-size: 1rem; color: var(--texte); background: var(--fond);
+  border: 1px solid var(--doux); border-radius: 8px; padding: 9px 12px; width: 100%;
+}
+.com { font-size: .92rem; padding: 6px 8px; min-height: 2.3rem; resize: vertical; }
+.grille td.col-com { width: auto; min-width: 12rem; text-align: left; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: calc(var(--pas) * 2); }
+.bouton--plein { color: var(--fond); background: var(--bleu); }
+.bouton--plein:hover { background: var(--titre); border-color: var(--titre); }
+.export-etat { margin-top: 8px; color: var(--doux); min-height: 1.6em; }
+.pied-page { margin-top: calc(var(--pas) * 10); padding-top: calc(var(--pas) * 3); border-top: 1px solid var(--bord); color: var(--doux); font-size: .92rem; display: grid; gap: var(--pas); max-width: 46rem; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+
+<a class="evitement" href="#regles">Aller aux règles</a>
+<main class="page">
+  <header class="tete">
+    <h1>Une présentation PowerPoint accessible</h1>
+    <p class="chapo">
+      Les 25 points qui rendent un diaporama accessible à tout le public,
+      chacun avec un exemple : d'abord dans le fichier, puis au moment de
+      présenter. Quand un outil numérique permet de vérifier un point, il est
+      indiqué dessous. En fin de page, une grille permet d'évaluer une
+      présentation et d'obtenir son score d'accessibilité.
+    </p>
+  </header>
+
+  <nav class="toc" aria-labelledby="toc-titre">
+    <h2 id="toc-titre">Sommaire</h2>
+    <ol><li><a href="#contexte" class="toc-partie"><span class="toc-n">1.</span><span class="toc-t">Contexte</span><span class="toc-fil" aria-hidden="true"></span><span class="toc-p">programme et article</span></a></li><li><a href="#regles" class="toc-partie"><span class="toc-n">2.</span><span class="toc-t">Les règles d’accessibilité pour une présentation</span><span class="toc-fil" aria-hidden="true"></span><span class="toc-p">25 points</span></a><ol><li><a href="#lisibilite"><span class="toc-n">2.1</span><span class="toc-t">Rendre le texte lisible</span><span class="toc-fil" aria-hidden="true"></span><span class="toc-p">points 1 à 6</span></a></li><li><a href="#reperes"><span class="toc-n">2.2</span><span class="toc-t">Donner des repères</span><span class="toc-fil" aria-hidden="true"></span><span class="toc-p">points 7 à 11</span></a></li><li><a href="#contenu"><span class="toc-n">2.3</span><span class="toc-t">Alléger le contenu</span><span class="toc-fil" aria-hidden="true"></span><span class="toc-p">points 12 à 18</span></a></li><li><a href="#oral"><span class="toc-n">2.4</span><span class="toc-t">Présenter à l’oral</span><span class="toc-fil" aria-hidden="true"></span><span class="toc-p">points 19 à 25</span></a></li></ol></li><li><a href="#grille" class="toc-partie"><span class="toc-n">3.</span><span class="toc-t">Grille d’évaluation</span><span class="toc-fil" aria-hidden="true"></span><span class="toc-p">score</span></a></li><li><a href="#glossaire" class="toc-partie"><span class="toc-n">4.</span><span class="toc-t">Glossaire</span><span class="toc-fil" aria-hidden="true"></span><span class="toc-p">14 termes</span></a></li></ol>
+  </nav>
+
+  <section class="partie" id="contexte" aria-labelledby="contexte-titre">
+    <h2 id="contexte-titre"><span class="sec-n">1.</span> Contexte</h2>
+    <div class="contexte">
+      <p>
+        Cette page a été conçue dans le cadre du programme Atypie-Friendly,
+        <a href="https://www.u-bordeaux.fr/universite/nos-engagements/atypie-friendly-inclure-les-profils-neuroatypiques">à l'université de Bordeaux</a>
+        et <a href="https://atypie-friendly.fr/">au niveau national</a>. Ce programme
+        vise à améliorer l'inclusion des étudiants et des personnels avec un
+        trouble du neurodéveloppement (TND).
+      </p>
+      <p>
+        Les points recensés sont issus de l'article de Laronze et N'kaoua (2026),
+        <a href="https://doi.org/10.1080/1034912X.2026.2678833" lang="en">« Evaluation of the Relevance and Effective Implementation of Pedagogical Practices for Students on the Autism Spectrum at University »</a>,
+        publié dans l'<cite lang="en">International Journal of Disability, Development and Education</cite>.
+        L'étude a interrogé 431 étudiants, dont 18 étudiants autistes. Elle leur
+        a soumis 54 pratiques pédagogiques inclusives, réparties en quatre thèmes :
+        le PowerPoint, les informations et règles, l'organisation et le contenu,
+        les stratégies d'engagement. Elle évalue à la fois la pertinence de ces
+        pratiques et leur mise en place effective.
+      </p>
+      <p>
+        Toutes les pratiques ont été jugées pertinentes, et les thèmes du
+        PowerPoint et des informations et règles arrivent en tête. Onze pratiques
+        ont été jugées significativement plus pertinentes encore par les
+        étudiants autistes que par les autres étudiants : ce sont celles
+        marquées d'une étoile <span aria-hidden="true">(★)</span> sur cette page.
+      </p>
+      <p>
+        Cette page reprend les 18 pratiques du thème PowerPoint et sept pratiques
+        liées à la façon de présenter, adaptées à toute présentation, qu'elle
+        soit faite par un enseignant ou par des étudiants. Les exemples ont été
+        rédigés pour ce document et ne figurent pas dans l'article.
+      </p>
+    </div>
+  </section>
+
+  <section class="partie" id="regles" aria-labelledby="regles-titre">
+    <h2 id="regles-titre"><span class="sec-n">2.</span> Les règles d'accessibilité pour une présentation</h2>
+    
+<section class="groupe" id="lisibilite" aria-labelledby="lisibilite-titre">
+  <p class="groupe-lieu">Dans le fichier</p>
+  <h3 id="lisibilite-titre"><span class="sec-n">2.1</span> Rendre le texte lisible</h3>
+  <ol class="regles" role="list">
+<li class="regle" id="pp-police">
+  <div class="regle-texte">
+    <h4><span class="num">1.</span> Police sans empattement</h4>
+    <p class="resume">Arial, Verdana, Calibri plutôt que Times ou Garamond.</p>
+    <p class="pourquoi">Les polices sans empattement sont généralement plus faciles à lire pour les personnes ayant des troubles de la lecture ou des difficultés visuelles.</p>
+    <p class="etoile"><span aria-hidden="true">★</span> Jugée plus pertinente encore par les étudiants autistes</p>
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Accueil > Remplacer > Remplacer les polices : change une police partout dans le fichier, en une fois.</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple. À éviter : le texte en police à empattements (Times). À privilégier : le même texte en police sans empattement — « La mémoire de travail » : Système de maintien temporaire de l&#x27;information pendant une tâche cognitive..">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo diapo--serif"><p class="m-dtitre">La mémoire de travail</p><div class="m-corps"><p>Système de maintien temporaire de l&#x27;information pendant une tâche cognitive.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">La mémoire de travail</p><div class="m-corps"><p>Système de maintien temporaire de l&#x27;information pendant une tâche cognitive.</p></div></div></div></div>
+  </figure>
+</li>
+<li class="regle" id="pp-taille">
+  <div class="regle-texte">
+    <h4><span class="num">2.</span> Taille de caractères lisible</h4>
+    <p class="resume">18 points au minimum.</p>
+    <p class="pourquoi">Les personnes ayant des troubles visuels ou des difficultés de lecture bénéficient grandement de caractères suffisamment grands.</p>
+    
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Masque des diapositives : réglez 18 points au minimum dans le masque, toutes les diapositives suivent.</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple. À éviter : le texte en très petits caractères. À privilégier : le texte en grands caractères, raccourci — « Définition » : La charge cognitive désigne la quantité de ressources mentales mobilisées par une tâche..">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo diapo--petit"><p class="m-dtitre">Définition</p><div class="m-corps"><p>La charge cognitive désigne la quantité de ressources mentales mobilisées par une tâche à un instant donné.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Définition</p><div class="m-corps"><p>La charge cognitive désigne la quantité de ressources mentales mobilisées par une tâche.</p></div></div></div></div>
+  </figure>
+</li>
+<li class="regle" id="pp-contraste">
+  <div class="regle-texte">
+    <h4><span class="num">3.</span> Contraste entre le texte et le fond</h4>
+    <p class="resume">Du texte foncé sur fond clair, ou l’inverse.</p>
+    <p class="pourquoi">Un bon contraste améliore la lisibilité pour tous et est indispensable pour les personnes ayant des sensibilités visuelles.</p>
+    
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">Seuils</span><span>WCAG niveau AA : 4,5:1 au minimum pour le texte courant ; 3:1 pour le grand texte (18 points, ou 14 points en gras). Niveau AAA : 7:1, et 4,5:1 pour le grand texte.</span></li><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a> : saisissez la couleur du texte et celle du fond, le ratio s’affiche.</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale les textes au contraste insuffisant.</span></li><li class="outil outil--widget">
+<div class="contraste" data-contraste>
+  <p class="contraste-titre" id="ct-titre">Testez vos deux couleurs</p>
+  <div class="contraste-champs">
+    <label for="ct-texte">Texte <input type="color" id="ct-texte" value="#1a1a1a"></label>
+    <label for="ct-fond">Fond <input type="color" id="ct-fond" value="#ffffff"></label>
+  </div>
+  <p class="contraste-apercu" id="ct-apercu">Exemple de texte de diapositive</p>
+  <p class="contraste-resultat" id="ct-resultat" aria-live="polite"></p>
+</div></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple. À éviter : le texte en gris très clair sur fond blanc, presque illisible. À privilégier : le texte foncé sur fond clair — « Trois conditions » : Attention disponible ; Support structuré ; Temps suffisant.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo diapo--faible-contraste"><p class="m-dtitre">Trois conditions</p><div class="m-corps"><ul class="m-ul"><li>Attention disponible</li><li>Support structuré</li><li>Temps suffisant</li></ul></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Trois conditions</p><div class="m-corps"><ul class="m-ul"><li>Attention disponible</li><li>Support structuré</li><li>Temps suffisant</li></ul></div></div></div></div>
+  </figure>
+</li>
+<li class="regle" id="pp-fond">
+  <div class="regle-texte">
+    <h4><span class="num">4.</span> Fond uni</h4>
+    <p class="resume">Un fond clair et sans motif.</p>
+    <p class="pourquoi">Les fonds texturés ou avec des images créent des distractions visuelles et réduisent la lisibilité du contenu.</p>
+    
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale le texte trop peu contrasté avec son fond.</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple. À éviter : le texte posé sur un fond à motifs chargé. À privilégier : le même texte sur fond uni — « Les trois mécanismes » : Encodage ; Stockage ; Récupération.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo diapo--fond-charge"><p class="m-dtitre">Les trois mécanismes</p><div class="m-corps"><ul class="m-ul"><li>Encodage</li><li>Stockage</li><li>Récupération</li></ul></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Les trois mécanismes</p><div class="m-corps"><ul class="m-ul"><li>Encodage</li><li>Stockage</li><li>Récupération</li></ul></div></div></div></div>
+  </figure>
+</li>
+<li class="regle" id="pp-superposition">
+  <div class="regle-texte">
+    <h4><span class="num">5.</span> Pas de cumul d’effets de mise en forme</h4>
+    <p class="resume">Un seul effet à la fois : gras, ou souligné, ou italique.</p>
+    <p class="pourquoi">Le cumul crée une surcharge visuelle qui peut être particulièrement perturbante pour les personnes avec un TND.</p>
+    
+    
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple. À éviter : la phrase à la fois en gras, souligné et italique. À privilégier : la phrase en gras seulement — « Point important » : L’évaluation finale compte pour 60 % de la note..">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo"><p class="m-dtitre">Point important</p><div class="m-corps"><p><strong><u><em>L’évaluation finale compte pour 60 % de la note.</em></u></strong></p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Point important</p><div class="m-corps"><p><strong>L’évaluation finale compte pour 60 % de la note.</strong></p></div></div></div></div>
+  </figure>
+</li>
+<li class="regle" id="pp-couleurs">
+  <div class="regle-texte">
+    <h4><span class="num">6.</span> Couleurs distinguables par tous</h4>
+    <p class="resume">Ne jamais faire porter une information par la seule couleur.</p>
+    <p class="pourquoi">Il faut choisir des couleurs visibles par tous, y compris les personnes daltoniennes, et doubler l&#x27;information colorée par un autre indice.</p>
+    
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.color-blindness.com/coblis-color-blindness-simulator/">Coblis</a> : déposez une capture de la diapositive pour la voir comme une personne daltonienne. L’image reste dans votre navigateur.</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Nuances de gris : si l’information disparaît en gris, elle repose sur la seule couleur.</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple. À éviter : acquis en vert et non acquis en rouge, distingués par la seule couleur. À privilégier : les mêmes couleurs, doublées d’un symbole : coche pour acquis, croix pour non acquis — « Résultats du groupe » : Acquis, Non acquis ; Chaque compétence porte aussi un symbole..">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo"><p class="m-dtitre">Résultats du groupe</p><div class="m-corps"><p class="m-legende"><span><i class="m-pastille m-vert"></i>Acquis</span><span><i class="m-pastille m-rouge"></i>Non acquis</span></p><p>Repérez en couleur les compétences non acquises.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Résultats du groupe</p><div class="m-corps"><p class="m-legende"><span><i class="m-pastille m-vert">✓</i>Acquis</span><span><i class="m-pastille m-rouge">✕</i>Non acquis</span></p><p>Chaque compétence porte aussi un symbole.</p></div></div></div></div>
+  </figure>
+</li></ol>
+</section>
+<section class="groupe" id="reperes" aria-labelledby="reperes-titre">
+  <p class="groupe-lieu">Dans le fichier</p>
+  <h3 id="reperes-titre"><span class="sec-n">2.2</span> Donner des repères</h3>
+  <ol class="regles" role="list">
+<li class="regle" id="pp-sommaire">
+  <div class="regle-texte">
+    <h4><span class="num">7.</span> Sommaire de la présentation</h4>
+    <p class="resume">Une diapositive de sommaire en ouverture.</p>
+    <p class="pourquoi">Le sommaire permet au public de se repérer dans la structure de la présentation. Cela réduit l’anxiété liée à l’incertitude et aide à la planification mentale.</p>
+    
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Insertion > Zoom > Zoom de résumé : crée une diapositive de sommaire à partir des sections choisies.</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Au programme » : Ce qu’est la charge cognitive ; Les trois types de charge ; Ce que cela change au quotidien ; Questions ; en pied de page : « 20 minutes ».">
+    <div class="diapo"><p class="m-dtitre">Au programme</p><div class="m-corps"><ol class="m-ol"><li><span class="m-rond">1</span>Ce qu’est la charge cognitive</li><li><span class="m-rond">2</span>Les trois types de charge</li><li><span class="m-rond">3</span>Ce que cela change au quotidien</li><li><span class="m-rond">4</span>Questions</li></ol></div><p class="m-pied">20 minutes</p></div>
+  </figure>
+</li>
+<li class="regle" id="pp-numero">
+  <div class="regle-texte">
+    <h4><span class="num">8.</span> Diapositives numérotées</h4>
+    <p class="resume">Un numéro en pied de chaque diapositive.</p>
+    <p class="pourquoi">Le numéro aide le public à se repérer dans la présentation. C’est particulièrement utile pour les personnes ayant des troubles de l’attention.</p>
+    
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Insertion > En-tête et pied de page > cochez « Numéro de diapositive ».</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Les trois types de charge » : Charge intrinsèque ; Charge extrinsèque ; Charge essentielle ; en pied de page : « 12 ».">
+    <div class="diapo"><p class="m-dtitre">Les trois types de charge</p><div class="m-corps"><ul class="m-ul"><li>Charge intrinsèque</li><li>Charge extrinsèque</li><li>Charge essentielle</li></ul></div><p class="m-pied">12</p></div>
+  </figure>
+</li>
+<li class="regle" id="pp-total">
+  <div class="regle-texte">
+    <h4><span class="num">9.</span> Nombre total de diapositives</h4>
+    <p class="resume">« 12 / 34 » plutôt que « 12 ».</p>
+    <p class="pourquoi">Indiquer le nombre total permet au public d’anticiper la durée restante. Cette information réduit l’anxiété et aide à la gestion de l’attention.</p>
+    <p class="etoile"><span aria-hidden="true">★</span> Jugée plus pertinente encore par les étudiants autistes</p>
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Masque des diapositives : ajoutez « / 34 » à côté du champ de numéro, une fois pour toutes les diapositives.</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple. À éviter : le seul numéro « 12 » en pied de page. À privilégier : « 12 / 34 » en pied de page — « Les trois types de charge » : Intrinsèque ; Extrinsèque.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo"><p class="m-dtitre">Les trois types de charge</p><div class="m-corps"><ul class="m-ul"><li>Intrinsèque</li><li>Extrinsèque</li></ul></div><p class="m-pied">12</p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Les trois types de charge</p><div class="m-corps"><ul class="m-ul"><li>Intrinsèque</li><li>Extrinsèque</li></ul></div><p class="m-pied">12 / 34</p></div></div></div>
+  </figure>
+</li>
+<li class="regle" id="pp-ariane">
+  <div class="regle-texte">
+    <h4><span class="num">10.</span> Fil d’Ariane</h4>
+    <p class="resume">Où l’on se trouve dans la présentation.</p>
+    <p class="pourquoi">Le fil d&#x27;Ariane permet de toujours savoir où l&#x27;on se situe dans la structure de la présentation. Cela réduit la charge cognitive et aide à la navigation.</p>
+    
+    
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « La charge extrinsèque », avec le fil d’Ariane « Partie 2 › Les trois types de charge › Charge extrinsèque » : Celle qu’ajoute la façon de présenter l’information, sans rien apprendre de plus. ; en pied de page : « 14 / 34 ».">
+    <div class="diapo"><p class="m-ariane">Partie 2 › Les trois types de charge › Charge extrinsèque</p><p class="m-dtitre">La charge extrinsèque</p><div class="m-corps"><p>Celle qu’ajoute la façon de présenter l’information, sans rien apprendre de plus.</p></div><p class="m-pied">14 / 34</p></div>
+  </figure>
+</li>
+<li class="regle" id="pp-charte">
+  <div class="regle-texte">
+    <h4><span class="num">11.</span> Charte graphique homogène</h4>
+    <p class="resume">Mêmes couleurs, mêmes polices, mêmes dispositions.</p>
+    <p class="pourquoi">L&#x27;homogénéité graphique crée un environnement prévisible qui réduit l&#x27;anxiété et facilite le traitement de l&#x27;information.</p>
+    
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Masque des diapositives : polices, couleurs et dispositions définies une fois, pour tout le diaporama.</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple. À éviter : trois diapositives aux couleurs et polices toutes différentes. À privilégier : trois diapositives avec les mêmes couleurs, polices et dispositions.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="m-trip m-trip--inc"><div class="m-mini"><span>Introduction</span><i></i><i></i></div><div class="m-mini"><span>Méthode</span><i></i><i></i></div><div class="m-mini"><span>Résultats</span><i></i><i></i></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="m-trip"><div class="m-mini"><span>Introduction</span><i></i><i></i></div><div class="m-mini"><span>Méthode</span><i></i><i></i></div><div class="m-mini"><span>Résultats</span><i></i><i></i></div></div></div></div>
+  </figure>
+</li></ol>
+</section>
+<section class="groupe" id="contenu" aria-labelledby="contenu-titre">
+  <p class="groupe-lieu">Dans le fichier</p>
+  <h3 id="contenu-titre"><span class="sec-n">2.3</span> Alléger le contenu</h3>
+  <ol class="regles" role="list">
+<li class="regle" id="pp-quantite">
+  <div class="regle-texte">
+    <h4><span class="num">12.</span> Quantité d’informations limitée</h4>
+    <p class="resume">Quelques points clés plutôt qu’un paragraphe.</p>
+    <p class="pourquoi">Limiter la quantité d&#x27;informations sur chaque diapositive évite la surcharge cognitive. Mieux vaut des diapositives aérées que des diapositives denses.</p>
+    
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.scolarius.com/">Scolarius</a> : collez le texte d’une diapositive, l’outil estime sa difficulté de lecture.</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple. À éviter : un long paragraphe dense. À privilégier : trois points courts — « La charge cognitive » : La mémoire de travail est limitée. ; Au-delà, l’apprentissage échoue. ; Trois formes de charge, une seule utile..">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo diapo--dense"><p class="m-dtitre">La charge cognitive</p><div class="m-corps"><p>La théorie de la charge cognitive postule que la mémoire de travail dispose de ressources limitées, que l’apprentissage échoue lorsque ces ressources sont dépassées, que la charge se décompose en trois formes distinctes dont l’une seulement est utile à l’apprentissage, et que la conception des supports doit donc viser à réduire la charge inutile tout en préservant la charge utile, ce qui suppose de hiérarchiser l’information.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">La charge cognitive</p><div class="m-corps"><ul class="m-ul"><li>La mémoire de travail est limitée.</li><li>Au-delà, l’apprentissage échoue.</li><li>Trois formes de charge, une seule utile.</li></ul></div></div></div></div>
+  </figure>
+</li>
+<li class="regle" id="pp-decomposition">
+  <div class="regle-texte">
+    <h4><span class="num">13.</span> Décomposition des informations complexes</h4>
+    <p class="resume">Une idée complexe découpée en étapes.</p>
+    <p class="pourquoi">Découper les concepts complexes permet de construire la compréhension étape par étape et réduit la surcharge cognitive.</p>
+    
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.scolarius.com/">Scolarius</a> : une phrase jugée difficile est souvent une phrase à découper.</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple. À éviter : tout le processus en une seule phrase longue. À privilégier : quatre étapes numérotées — « Le processus, étape par étape » : Perception : l’information arrive. ; Encodage : elle est mise en forme. ; Consolidation : elle se stabilise. ; Récupération : on la retrouve..">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo diapo--dense"><p class="m-dtitre">Le processus</p><div class="m-corps"><p>L’information perçue est encodée puis consolidée en mémoire à long terme avant d’être récupérée lors du rappel, sous réserve que l’encodage ait été suffisamment profond.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Le processus, étape par étape</p><div class="m-corps"><ol class="m-ol"><li><span class="m-rond">1</span>Perception : l’information arrive.</li><li><span class="m-rond">2</span>Encodage : elle est mise en forme.</li><li><span class="m-rond">3</span>Consolidation : elle se stabilise.</li><li><span class="m-rond">4</span>Récupération : on la retrouve.</li></ol></div></div></div></div>
+  </figure>
+</li>
+<li class="regle" id="pp-image">
+  <div class="regle-texte">
+    <h4><span class="num">14.</span> Une seule image par diapositive</h4>
+    <p class="resume">Une image pertinente, décrite en mots, avec un texte de remplacement.</p>
+    <p class="pourquoi">Limiter à une image ou un graphique par diapositive évite la surcharge visuelle et améliore la compréhension. L’image doit aussi porter un texte de remplacement : c’est lui que lit un lecteur d’écran.</p>
+    
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">Comment faire</span><span>Clic droit sur l’image > Afficher le texte de remplacement. Décrivez en une ou deux phrases ce que l’image apporte (par exemple « Courbe : la performance chute au-delà de sept éléments »), sans recopier le nom du fichier. Une image purement décorative se marque « Décorative ».</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale les images sans texte de remplacement.</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple. À éviter : quatre images sans légende. À privilégier : une seule image, accompagnée d’une phrase qui la décrit — « Résultats » : 1 image ; La performance chute au-delà de sept éléments présentés simultanément..">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo"><p class="m-dtitre">Résultats</p><div class="m-corps"><div class="m-images m-images--4"><span></span><span></span><span></span><span></span></div></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Résultats</p><div class="m-corps"><div class="m-images m-images--1"><span></span></div><p>La performance chute au-delà de sept éléments présentés simultanément.</p></div></div></div></div>
+  </figure>
+</li>
+<li class="regle" id="pp-explicite">
+  <div class="regle-texte">
+    <h4><span class="num">15.</span> Formulations explicites</h4>
+    <p class="resume">Pas de sous-entendu.</p>
+    <p class="pourquoi">La clarté du langage facilite la compréhension pour tous, et évite aux personnes autistes d’avoir à décoder l’implicite.</p>
+    
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.scolarius.com/">Scolarius</a> repère les phrases longues et les mots rares, souvent ceux où se cache l’implicite.</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple. À éviter : Vous voyez bien où je veux en venir… le reste coule de source.. À privilégier : Quand la charge cognitive augmente, la performance diminue. C’est la relation à retenir. — « À retenir » : Quand la charge cognitive augmente, la performance diminue. C’est la relation à retenir..">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo"><p class="m-dtitre">À retenir</p><div class="m-corps"><p>Vous voyez bien où je veux en venir… le reste coule de source.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">À retenir</p><div class="m-corps"><p>Quand la charge cognitive augmente, la performance diminue. C’est la relation à retenir.</p></div></div></div></div>
+  </figure>
+</li>
+<li class="regle" id="pp-acronymes">
+  <div class="regle-texte">
+    <h4><span class="num">16.</span> Définition des acronymes</h4>
+    <p class="resume">Y compris ceux que « tout le monde connaît ».</p>
+    <p class="pourquoi">Définir les acronymes dès leur première apparition réduit la charge cognitive et évite la confusion, en particulier pour les personnes ayant des difficultés de mémoire de travail ou d’attention.</p>
+    
+    
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Vocabulaire de la présentation » : CUA : Conception universelle de l’apprentissage ; TND : Trouble du neurodéveloppement ; MDPH : Maison départementale des personnes handicapées.">
+    <div class="diapo"><p class="m-dtitre">Vocabulaire de la présentation</p><div class="m-corps"><p class="m-champ"><span>CUA</span>Conception universelle de l’apprentissage</p><p class="m-champ"><span>TND</span>Trouble du neurodéveloppement</p><p class="m-champ"><span>MDPH</span>Maison départementale des personnes handicapées</p></div></div>
+  </figure>
+</li>
+<li class="regle" id="pp-glossaire">
+  <div class="regle-texte">
+    <h4><span class="num">17.</span> Glossaire</h4>
+    <p class="resume">Une diapositive qui rassemble les termes techniques.</p>
+    <p class="pourquoi">Le glossaire permet au public de retrouver facilement les définitions et réduit la charge cognitive liée au vocabulaire spécialisé.</p>
+    
+    
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Glossaire » : Encodage : Mise en forme initiale d’une information. ; Consolidation : Stabilisation de la trace en mémoire. ; Rappel indicé : Récupération aidée par un indice..">
+    <div class="diapo"><p class="m-dtitre">Glossaire</p><div class="m-corps"><p class="m-champ"><span>Encodage</span>Mise en forme initiale d’une information.</p><p class="m-champ"><span>Consolidation</span>Stabilisation de la trace en mémoire.</p><p class="m-champ"><span>Rappel indicé</span>Récupération aidée par un indice.</p></div></div>
+  </figure>
+</li>
+<li class="regle" id="pp-soustitres">
+  <div class="regle-texte">
+    <h4><span class="num">18.</span> Sous-titrage des vidéos</h4>
+    <p class="resume">Toutes les vidéos, y compris les extraits courts.</p>
+    <p class="pourquoi">Les sous-titres aident les personnes ayant des difficultés de traitement auditif ou de compréhension d’une langue, et permettent un meilleur suivi du contenu.</p>
+    <p class="etoile"><span aria-hidden="true">★</span> Jugée plus pertinente encore par les étudiants autistes</p>
+    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale les vidéos insérées sans sous-titres.</span></li></ul></div>
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Extrait : entretien clinique » : une vidéo sous-titrée : « Ce que je décris là, c’est la charge que représente une consigne implicite. » ; en pied de page : « 18 / 34 ».">
+    <div class="diapo"><p class="m-dtitre">Extrait : entretien clinique</p><div class="m-corps"><div class="m-video"><span class="m-play">▶</span><span class="m-st">« Ce que je décris là, c’est la charge que représente une consigne implicite. »</span></div></div><p class="m-pied">18 / 34</p></div>
+  </figure>
+</li></ol>
+</section>
+<section class="groupe" id="oral" aria-labelledby="oral-titre">
+  <p class="groupe-lieu">Autour du support</p>
+  <h3 id="oral-titre"><span class="sec-n">2.4</span> Présenter à l’oral</h3>
+  <ol class="regles" role="list">
+<li class="regle" id="co-support-avant">
+  <div class="regle-texte">
+    <h4><span class="num">19.</span> Support partagé avant la présentation</h4>
+    <p class="resume">Le diaporama transmis la veille, au plus tard.</p>
+    <p class="pourquoi">Recevoir le support à l’avance permet de se familiariser avec le contenu, de préparer ses questions et de réduire la surcharge pendant la présentation.</p>
+    
+    
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple de courriel, objet « Support de la présentation de mardi » : Bonjour à tous, ; Vous trouverez en pièce jointe le diaporama complet de notre présentation de mardi : les 34 diapositives qui seront projetées, dans l’ordre. ; Bonne lecture, Camille ; Pièce jointe : presentation-charge-cognitive.pptx">
+    <div class="m-mail"><div class="m-mail-tete"><p class="m-mail-l"><span>De</span>Camille Martin</p><p class="m-mail-l"><span>À</span>Groupe TD 3</p><p class="m-mail-l"><span>Objet</span>Support de la présentation de mardi</p></div><div class="m-corps"><p>Bonjour à tous,</p><p>Vous trouverez en pièce jointe le diaporama complet de notre présentation de mardi : les 34 diapositives qui seront projetées, dans l’ordre.</p><p>Bonne lecture, Camille</p><p class="m-titre">Pièce jointe : presentation-charge-cognitive.pptx</p></div></div>
+  </figure>
+</li>
+<li class="regle" id="co-prerequis">
+  <div class="regle-texte">
+    <h4><span class="num">20.</span> Prérequis annoncés à l’avance</h4>
+    <p class="resume">Ce qu’il faut savoir pour suivre.</p>
+    <p class="pourquoi">Annoncer les prérequis permet au public de se préparer et d’évaluer ses connaissances. Cela réduit le stress lié au sentiment de ne pas être au niveau.</p>
+    
+    
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple de courriel, objet « Pour suivre la présentation du 12 novembre » : Bonjour à tous, ; Trois notions vous seront utiles pour suivre : ; Mémoire de travail : le modèle de Baddeley. ; Attention sélective : définition. ; Effet de récence : le rappel libre. ; Un rappel de 4 pages est joint si besoin.">
+    <div class="m-mail"><div class="m-mail-tete"><p class="m-mail-l"><span>De</span>Camille Martin</p><p class="m-mail-l"><span>À</span>Groupe TD 3</p><p class="m-mail-l"><span>Objet</span>Pour suivre la présentation du 12 novembre</p></div><div class="m-corps"><p>Bonjour à tous,</p><p>Trois notions vous seront utiles pour suivre :</p><ul class="m-ul"><li>Mémoire de travail : le modèle de Baddeley.</li><li>Attention sélective : définition.</li><li>Effet de récence : le rappel libre.</li></ul><p>Un rappel de 4 pages est joint si besoin.</p></div></div>
+  </figure>
+</li>
+<li class="regle" id="co-plan">
+  <div class="regle-texte">
+    <h4><span class="num">21.</span> Déroulé annoncé en ouverture</h4>
+    <p class="resume">Deux minutes au début, avec les horaires.</p>
+    <p class="pourquoi">Présenter le déroulé permet au public de se préparer à la structure de la présentation et réduit l’anxiété liée à l’imprévisibilité.</p>
+    
+    
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Le déroulé » : 10 h 00 : Introduction ; 10 h 05 : Les trois types de charge cognitive ; 10 h 25 : Un exemple concret ; 10 h 40 : Synthèse et questions.">
+    <div class="diapo"><p class="m-dtitre">Le déroulé</p><div class="m-corps"><p class="m-champ"><span>10 h 00</span>Introduction</p><p class="m-champ"><span>10 h 05</span>Les trois types de charge cognitive</p><p class="m-champ"><span>10 h 25</span>Un exemple concret</p><p class="m-champ"><span>10 h 40</span>Synthèse et questions</p></div></div>
+  </figure>
+</li>
+<li class="regle" id="en-annotation">
+  <div class="regle-texte">
+    <h4><span class="num">22.</span> Support annotable</h4>
+    <p class="resume">Une version à trous, ou avec une colonne de notes.</p>
+    <p class="pourquoi">Écouter et noter en même temps est coûteux. Un support annotable permet de suivre sans avoir à tout retranscrire. C’est l’une des pratiques les mieux notées par les étudiants autistes.</p>
+    <p class="etoile"><span aria-hidden="true">★</span> Jugée plus pertinente encore par les étudiants autistes</p>
+    
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Les trois types de charge » : Intrinsèque : liée à la difficulté du contenu. ; Extrinsèque : liée à la présentation. ; Essentielle : celle qui construit l’apprentissage. ; une colonne « Vos notes » à droite pour écrire ; en pied de page : « 12 / 34 ».">
+    <div class="diapo"><p class="m-dtitre">Les trois types de charge</p><div class="m-corps"><div class="m-marge"><div><ul class="m-ul"><li>Intrinsèque : liée à la difficulté du contenu.</li><li>Extrinsèque : liée à la présentation.</li><li>Essentielle : celle qui construit l’apprentissage.</li></ul></div><div class="m-notes"><span>Vos notes</span><i></i><i></i><i></i></div></div></div><p class="m-pied">12 / 34</p></div>
+  </figure>
+</li>
+<li class="regle" id="en-notes-individuelles">
+  <div class="regle-texte">
+    <h4><span class="num">23.</span> Temps dédié à la prise de notes individuelle</h4>
+    <p class="resume">Un temps dédié, pas simultané à l’écoute.</p>
+    <p class="pourquoi">Ménager un temps explicite pour noter évite d&#x27;avoir à écouter, comprendre et écrire en même temps.</p>
+    
+    
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple, à dire pendant la présentation : Je m’arrête deux minutes. Notez ce que vous retenez de cette partie ; je ne parle pas pendant ce temps, et je reprends après.">
+    <div class="m-doc"><p class="m-support">À dire pendant la présentation</p><div class="m-corps"><blockquote>Je m’arrête deux minutes. Notez ce que vous retenez de cette partie ; je ne parle pas pendant ce temps, et je reprends après.</blockquote></div></div>
+  </figure>
+</li>
+<li class="regle" id="en-questions">
+  <div class="regle-texte">
+    <h4><span class="num">24.</span> Encourager les questions</h4>
+    <p class="resume">Dire quand, comment, et que c’est bienvenu.</p>
+    <p class="pourquoi">« N&#x27;hésitez pas à m&#x27;interrompre » suppose de savoir quand interrompre. Préciser le moment et la façon de faire rend l’invitation réellement faisable, notamment pour les personnes avec un TND.</p>
+    
+    
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple, à dire en ouverture : Vous pouvez poser une question à trois moments : à la fin de chaque partie en levant la main, pendant le temps de questions final, ou par écrit dans le document partagé. Aucune question n’est trop simple.">
+    <div class="m-doc"><p class="m-support">À dire en ouverture</p><div class="m-corps"><blockquote>Vous pouvez poser une question à trois moments : à la fin de chaque partie en levant la main, pendant le temps de questions final, ou par écrit dans le document partagé. Aucune question n’est trop simple.</blockquote></div></div>
+  </figure>
+</li>
+<li class="regle" id="co-rappel">
+  <div class="regle-texte">
+    <h4><span class="num">25.</span> Récapitulatif en fin de présentation</h4>
+    <p class="resume">Ce qu’il fallait retenir, en trois points.</p>
+    <p class="pourquoi">Un récapitulatif final aide à retenir l’essentiel, clarifie les points importants et facilite l’organisation des connaissances.</p>
+    
+    
+  </div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Ce qu’il faut retenir » : La mémoire de travail traite peu d’éléments à la fois. ; Au-delà, on ne retient plus. ; Un support structuré libère des ressources pour comprendre..">
+    <div class="diapo"><p class="m-dtitre">Ce qu’il faut retenir</p><div class="m-corps"><ol class="m-ol"><li><span class="m-rond">1</span>La mémoire de travail traite peu d’éléments à la fois.</li><li><span class="m-rond">2</span>Au-delà, on ne retient plus.</li><li><span class="m-rond">3</span>Un support structuré libère des ressources pour comprendre.</li></ol></div></div>
+  </figure>
+</li></ol>
+</section>
+  </section>
+
+  <section class="partie grille" id="grille" aria-labelledby="grille-titre">
+    <h2 id="grille-titre"><span class="sec-n">3.</span> Grille d'évaluation</h2>
+    <p class="grille-intro">
+      Pour chaque point, choisissez une note : 0 s'il est absent, 1 s'il est
+      présent mais à améliorer, 2 s'il est parfait. Ajoutez un commentaire si
+      besoin. Le score se calcule à mesure.
+    </p>
+    <div class="grille-titre-pres">
+      <label for="titre-pres">Titre de la présentation évaluée</label>
+      <input type="text" id="titre-pres" autocomplete="off" placeholder="Par exemple : La charge cognitive, groupe TD 3">
+    </div>
+    <div class="table-boite">
+      <table>
+        <caption class="visuellement-cache">Grille d'évaluation de l'accessibilité d'une présentation, 25 points notés de 0 à 2, avec commentaire</caption>
+        <thead>
+          <tr>
+            <th scope="col">Point</th>
+            <th scope="col" id="gh-0"><span class="note">0</span> Absent</th>
+            <th scope="col" id="gh-1"><span class="note">1</span> À améliorer</th>
+            <th scope="col" id="gh-2"><span class="note">2</span> Parfait</th>
+            <th scope="col">Commentaire</th>
+          </tr>
+        </thead>
+        <tbody><tr class="grille-partie"><th scope="rowgroup" colspan="5">2.1 Rendre le texte lisible</th></tr><tr data-num="1"><th scope="row" id="g-pp-police"><span class="num">1.</span> Police sans empattement</th><td><input type="radio" name="g-pp-police" id="g-pp-police-0" value="0" aria-labelledby="gh-0 g-pp-police"></td><td><input type="radio" name="g-pp-police" id="g-pp-police-1" value="1" aria-labelledby="gh-1 g-pp-police"></td><td><input type="radio" name="g-pp-police" id="g-pp-police-2" value="2" aria-labelledby="gh-2 g-pp-police"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-police">Commentaire sur le point 1</label><textarea id="com-pp-police" rows="1" class="com"></textarea></td></tr><tr data-num="2"><th scope="row" id="g-pp-taille"><span class="num">2.</span> Taille de caractères lisible</th><td><input type="radio" name="g-pp-taille" id="g-pp-taille-0" value="0" aria-labelledby="gh-0 g-pp-taille"></td><td><input type="radio" name="g-pp-taille" id="g-pp-taille-1" value="1" aria-labelledby="gh-1 g-pp-taille"></td><td><input type="radio" name="g-pp-taille" id="g-pp-taille-2" value="2" aria-labelledby="gh-2 g-pp-taille"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-taille">Commentaire sur le point 2</label><textarea id="com-pp-taille" rows="1" class="com"></textarea></td></tr><tr data-num="3"><th scope="row" id="g-pp-contraste"><span class="num">3.</span> Contraste entre le texte et le fond</th><td><input type="radio" name="g-pp-contraste" id="g-pp-contraste-0" value="0" aria-labelledby="gh-0 g-pp-contraste"></td><td><input type="radio" name="g-pp-contraste" id="g-pp-contraste-1" value="1" aria-labelledby="gh-1 g-pp-contraste"></td><td><input type="radio" name="g-pp-contraste" id="g-pp-contraste-2" value="2" aria-labelledby="gh-2 g-pp-contraste"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-contraste">Commentaire sur le point 3</label><textarea id="com-pp-contraste" rows="1" class="com"></textarea></td></tr><tr data-num="4"><th scope="row" id="g-pp-fond"><span class="num">4.</span> Fond uni</th><td><input type="radio" name="g-pp-fond" id="g-pp-fond-0" value="0" aria-labelledby="gh-0 g-pp-fond"></td><td><input type="radio" name="g-pp-fond" id="g-pp-fond-1" value="1" aria-labelledby="gh-1 g-pp-fond"></td><td><input type="radio" name="g-pp-fond" id="g-pp-fond-2" value="2" aria-labelledby="gh-2 g-pp-fond"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-fond">Commentaire sur le point 4</label><textarea id="com-pp-fond" rows="1" class="com"></textarea></td></tr><tr data-num="5"><th scope="row" id="g-pp-superposition"><span class="num">5.</span> Pas de cumul d’effets de mise en forme</th><td><input type="radio" name="g-pp-superposition" id="g-pp-superposition-0" value="0" aria-labelledby="gh-0 g-pp-superposition"></td><td><input type="radio" name="g-pp-superposition" id="g-pp-superposition-1" value="1" aria-labelledby="gh-1 g-pp-superposition"></td><td><input type="radio" name="g-pp-superposition" id="g-pp-superposition-2" value="2" aria-labelledby="gh-2 g-pp-superposition"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-superposition">Commentaire sur le point 5</label><textarea id="com-pp-superposition" rows="1" class="com"></textarea></td></tr><tr data-num="6"><th scope="row" id="g-pp-couleurs"><span class="num">6.</span> Couleurs distinguables par tous</th><td><input type="radio" name="g-pp-couleurs" id="g-pp-couleurs-0" value="0" aria-labelledby="gh-0 g-pp-couleurs"></td><td><input type="radio" name="g-pp-couleurs" id="g-pp-couleurs-1" value="1" aria-labelledby="gh-1 g-pp-couleurs"></td><td><input type="radio" name="g-pp-couleurs" id="g-pp-couleurs-2" value="2" aria-labelledby="gh-2 g-pp-couleurs"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-couleurs">Commentaire sur le point 6</label><textarea id="com-pp-couleurs" rows="1" class="com"></textarea></td></tr><tr class="grille-partie"><th scope="rowgroup" colspan="5">2.2 Donner des repères</th></tr><tr data-num="7"><th scope="row" id="g-pp-sommaire"><span class="num">7.</span> Sommaire de la présentation</th><td><input type="radio" name="g-pp-sommaire" id="g-pp-sommaire-0" value="0" aria-labelledby="gh-0 g-pp-sommaire"></td><td><input type="radio" name="g-pp-sommaire" id="g-pp-sommaire-1" value="1" aria-labelledby="gh-1 g-pp-sommaire"></td><td><input type="radio" name="g-pp-sommaire" id="g-pp-sommaire-2" value="2" aria-labelledby="gh-2 g-pp-sommaire"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-sommaire">Commentaire sur le point 7</label><textarea id="com-pp-sommaire" rows="1" class="com"></textarea></td></tr><tr data-num="8"><th scope="row" id="g-pp-numero"><span class="num">8.</span> Diapositives numérotées</th><td><input type="radio" name="g-pp-numero" id="g-pp-numero-0" value="0" aria-labelledby="gh-0 g-pp-numero"></td><td><input type="radio" name="g-pp-numero" id="g-pp-numero-1" value="1" aria-labelledby="gh-1 g-pp-numero"></td><td><input type="radio" name="g-pp-numero" id="g-pp-numero-2" value="2" aria-labelledby="gh-2 g-pp-numero"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-numero">Commentaire sur le point 8</label><textarea id="com-pp-numero" rows="1" class="com"></textarea></td></tr><tr data-num="9"><th scope="row" id="g-pp-total"><span class="num">9.</span> Nombre total de diapositives</th><td><input type="radio" name="g-pp-total" id="g-pp-total-0" value="0" aria-labelledby="gh-0 g-pp-total"></td><td><input type="radio" name="g-pp-total" id="g-pp-total-1" value="1" aria-labelledby="gh-1 g-pp-total"></td><td><input type="radio" name="g-pp-total" id="g-pp-total-2" value="2" aria-labelledby="gh-2 g-pp-total"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-total">Commentaire sur le point 9</label><textarea id="com-pp-total" rows="1" class="com"></textarea></td></tr><tr data-num="10"><th scope="row" id="g-pp-ariane"><span class="num">10.</span> Fil d’Ariane</th><td><input type="radio" name="g-pp-ariane" id="g-pp-ariane-0" value="0" aria-labelledby="gh-0 g-pp-ariane"></td><td><input type="radio" name="g-pp-ariane" id="g-pp-ariane-1" value="1" aria-labelledby="gh-1 g-pp-ariane"></td><td><input type="radio" name="g-pp-ariane" id="g-pp-ariane-2" value="2" aria-labelledby="gh-2 g-pp-ariane"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-ariane">Commentaire sur le point 10</label><textarea id="com-pp-ariane" rows="1" class="com"></textarea></td></tr><tr data-num="11"><th scope="row" id="g-pp-charte"><span class="num">11.</span> Charte graphique homogène</th><td><input type="radio" name="g-pp-charte" id="g-pp-charte-0" value="0" aria-labelledby="gh-0 g-pp-charte"></td><td><input type="radio" name="g-pp-charte" id="g-pp-charte-1" value="1" aria-labelledby="gh-1 g-pp-charte"></td><td><input type="radio" name="g-pp-charte" id="g-pp-charte-2" value="2" aria-labelledby="gh-2 g-pp-charte"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-charte">Commentaire sur le point 11</label><textarea id="com-pp-charte" rows="1" class="com"></textarea></td></tr><tr class="grille-partie"><th scope="rowgroup" colspan="5">2.3 Alléger le contenu</th></tr><tr data-num="12"><th scope="row" id="g-pp-quantite"><span class="num">12.</span> Quantité d’informations limitée</th><td><input type="radio" name="g-pp-quantite" id="g-pp-quantite-0" value="0" aria-labelledby="gh-0 g-pp-quantite"></td><td><input type="radio" name="g-pp-quantite" id="g-pp-quantite-1" value="1" aria-labelledby="gh-1 g-pp-quantite"></td><td><input type="radio" name="g-pp-quantite" id="g-pp-quantite-2" value="2" aria-labelledby="gh-2 g-pp-quantite"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-quantite">Commentaire sur le point 12</label><textarea id="com-pp-quantite" rows="1" class="com"></textarea></td></tr><tr data-num="13"><th scope="row" id="g-pp-decomposition"><span class="num">13.</span> Décomposition des informations complexes</th><td><input type="radio" name="g-pp-decomposition" id="g-pp-decomposition-0" value="0" aria-labelledby="gh-0 g-pp-decomposition"></td><td><input type="radio" name="g-pp-decomposition" id="g-pp-decomposition-1" value="1" aria-labelledby="gh-1 g-pp-decomposition"></td><td><input type="radio" name="g-pp-decomposition" id="g-pp-decomposition-2" value="2" aria-labelledby="gh-2 g-pp-decomposition"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-decomposition">Commentaire sur le point 13</label><textarea id="com-pp-decomposition" rows="1" class="com"></textarea></td></tr><tr data-num="14"><th scope="row" id="g-pp-image"><span class="num">14.</span> Une seule image par diapositive</th><td><input type="radio" name="g-pp-image" id="g-pp-image-0" value="0" aria-labelledby="gh-0 g-pp-image"></td><td><input type="radio" name="g-pp-image" id="g-pp-image-1" value="1" aria-labelledby="gh-1 g-pp-image"></td><td><input type="radio" name="g-pp-image" id="g-pp-image-2" value="2" aria-labelledby="gh-2 g-pp-image"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-image">Commentaire sur le point 14</label><textarea id="com-pp-image" rows="1" class="com"></textarea></td></tr><tr data-num="15"><th scope="row" id="g-pp-explicite"><span class="num">15.</span> Formulations explicites</th><td><input type="radio" name="g-pp-explicite" id="g-pp-explicite-0" value="0" aria-labelledby="gh-0 g-pp-explicite"></td><td><input type="radio" name="g-pp-explicite" id="g-pp-explicite-1" value="1" aria-labelledby="gh-1 g-pp-explicite"></td><td><input type="radio" name="g-pp-explicite" id="g-pp-explicite-2" value="2" aria-labelledby="gh-2 g-pp-explicite"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-explicite">Commentaire sur le point 15</label><textarea id="com-pp-explicite" rows="1" class="com"></textarea></td></tr><tr data-num="16"><th scope="row" id="g-pp-acronymes"><span class="num">16.</span> Définition des acronymes</th><td><input type="radio" name="g-pp-acronymes" id="g-pp-acronymes-0" value="0" aria-labelledby="gh-0 g-pp-acronymes"></td><td><input type="radio" name="g-pp-acronymes" id="g-pp-acronymes-1" value="1" aria-labelledby="gh-1 g-pp-acronymes"></td><td><input type="radio" name="g-pp-acronymes" id="g-pp-acronymes-2" value="2" aria-labelledby="gh-2 g-pp-acronymes"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-acronymes">Commentaire sur le point 16</label><textarea id="com-pp-acronymes" rows="1" class="com"></textarea></td></tr><tr data-num="17"><th scope="row" id="g-pp-glossaire"><span class="num">17.</span> Glossaire</th><td><input type="radio" name="g-pp-glossaire" id="g-pp-glossaire-0" value="0" aria-labelledby="gh-0 g-pp-glossaire"></td><td><input type="radio" name="g-pp-glossaire" id="g-pp-glossaire-1" value="1" aria-labelledby="gh-1 g-pp-glossaire"></td><td><input type="radio" name="g-pp-glossaire" id="g-pp-glossaire-2" value="2" aria-labelledby="gh-2 g-pp-glossaire"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-glossaire">Commentaire sur le point 17</label><textarea id="com-pp-glossaire" rows="1" class="com"></textarea></td></tr><tr data-num="18"><th scope="row" id="g-pp-soustitres"><span class="num">18.</span> Sous-titrage des vidéos</th><td><input type="radio" name="g-pp-soustitres" id="g-pp-soustitres-0" value="0" aria-labelledby="gh-0 g-pp-soustitres"></td><td><input type="radio" name="g-pp-soustitres" id="g-pp-soustitres-1" value="1" aria-labelledby="gh-1 g-pp-soustitres"></td><td><input type="radio" name="g-pp-soustitres" id="g-pp-soustitres-2" value="2" aria-labelledby="gh-2 g-pp-soustitres"></td><td class="col-com"><label class="visuellement-cache" for="com-pp-soustitres">Commentaire sur le point 18</label><textarea id="com-pp-soustitres" rows="1" class="com"></textarea></td></tr><tr class="grille-partie"><th scope="rowgroup" colspan="5">2.4 Présenter à l’oral</th></tr><tr data-num="19"><th scope="row" id="g-co-support-avant"><span class="num">19.</span> Support partagé avant la présentation</th><td><input type="radio" name="g-co-support-avant" id="g-co-support-avant-0" value="0" aria-labelledby="gh-0 g-co-support-avant"></td><td><input type="radio" name="g-co-support-avant" id="g-co-support-avant-1" value="1" aria-labelledby="gh-1 g-co-support-avant"></td><td><input type="radio" name="g-co-support-avant" id="g-co-support-avant-2" value="2" aria-labelledby="gh-2 g-co-support-avant"></td><td class="col-com"><label class="visuellement-cache" for="com-co-support-avant">Commentaire sur le point 19</label><textarea id="com-co-support-avant" rows="1" class="com"></textarea></td></tr><tr data-num="20"><th scope="row" id="g-co-prerequis"><span class="num">20.</span> Prérequis annoncés à l’avance</th><td><input type="radio" name="g-co-prerequis" id="g-co-prerequis-0" value="0" aria-labelledby="gh-0 g-co-prerequis"></td><td><input type="radio" name="g-co-prerequis" id="g-co-prerequis-1" value="1" aria-labelledby="gh-1 g-co-prerequis"></td><td><input type="radio" name="g-co-prerequis" id="g-co-prerequis-2" value="2" aria-labelledby="gh-2 g-co-prerequis"></td><td class="col-com"><label class="visuellement-cache" for="com-co-prerequis">Commentaire sur le point 20</label><textarea id="com-co-prerequis" rows="1" class="com"></textarea></td></tr><tr data-num="21"><th scope="row" id="g-co-plan"><span class="num">21.</span> Déroulé annoncé en ouverture</th><td><input type="radio" name="g-co-plan" id="g-co-plan-0" value="0" aria-labelledby="gh-0 g-co-plan"></td><td><input type="radio" name="g-co-plan" id="g-co-plan-1" value="1" aria-labelledby="gh-1 g-co-plan"></td><td><input type="radio" name="g-co-plan" id="g-co-plan-2" value="2" aria-labelledby="gh-2 g-co-plan"></td><td class="col-com"><label class="visuellement-cache" for="com-co-plan">Commentaire sur le point 21</label><textarea id="com-co-plan" rows="1" class="com"></textarea></td></tr><tr data-num="22"><th scope="row" id="g-en-annotation"><span class="num">22.</span> Support annotable</th><td><input type="radio" name="g-en-annotation" id="g-en-annotation-0" value="0" aria-labelledby="gh-0 g-en-annotation"></td><td><input type="radio" name="g-en-annotation" id="g-en-annotation-1" value="1" aria-labelledby="gh-1 g-en-annotation"></td><td><input type="radio" name="g-en-annotation" id="g-en-annotation-2" value="2" aria-labelledby="gh-2 g-en-annotation"></td><td class="col-com"><label class="visuellement-cache" for="com-en-annotation">Commentaire sur le point 22</label><textarea id="com-en-annotation" rows="1" class="com"></textarea></td></tr><tr data-num="23"><th scope="row" id="g-en-notes-individuelles"><span class="num">23.</span> Temps dédié à la prise de notes individuelle</th><td><input type="radio" name="g-en-notes-individuelles" id="g-en-notes-individuelles-0" value="0" aria-labelledby="gh-0 g-en-notes-individuelles"></td><td><input type="radio" name="g-en-notes-individuelles" id="g-en-notes-individuelles-1" value="1" aria-labelledby="gh-1 g-en-notes-individuelles"></td><td><input type="radio" name="g-en-notes-individuelles" id="g-en-notes-individuelles-2" value="2" aria-labelledby="gh-2 g-en-notes-individuelles"></td><td class="col-com"><label class="visuellement-cache" for="com-en-notes-individuelles">Commentaire sur le point 23</label><textarea id="com-en-notes-individuelles" rows="1" class="com"></textarea></td></tr><tr data-num="24"><th scope="row" id="g-en-questions"><span class="num">24.</span> Encourager les questions</th><td><input type="radio" name="g-en-questions" id="g-en-questions-0" value="0" aria-labelledby="gh-0 g-en-questions"></td><td><input type="radio" name="g-en-questions" id="g-en-questions-1" value="1" aria-labelledby="gh-1 g-en-questions"></td><td><input type="radio" name="g-en-questions" id="g-en-questions-2" value="2" aria-labelledby="gh-2 g-en-questions"></td><td class="col-com"><label class="visuellement-cache" for="com-en-questions">Commentaire sur le point 24</label><textarea id="com-en-questions" rows="1" class="com"></textarea></td></tr><tr data-num="25"><th scope="row" id="g-co-rappel"><span class="num">25.</span> Récapitulatif en fin de présentation</th><td><input type="radio" name="g-co-rappel" id="g-co-rappel-0" value="0" aria-labelledby="gh-0 g-co-rappel"></td><td><input type="radio" name="g-co-rappel" id="g-co-rappel-1" value="1" aria-labelledby="gh-1 g-co-rappel"></td><td><input type="radio" name="g-co-rappel" id="g-co-rappel-2" value="2" aria-labelledby="gh-2 g-co-rappel"></td><td class="col-com"><label class="visuellement-cache" for="com-co-rappel">Commentaire sur le point 25</label><textarea id="com-co-rappel" rows="1" class="com"></textarea></td></tr></tbody>
+      </table>
+    </div>
+    <div class="score" aria-live="polite">
+      <p class="score-titre">Score d'accessibilité</p>
+      <p class="score-valeur"><span id="score-points">0</span> / 50 <span class="score-pct" id="score-pct">0 %</span></p>
+      <div class="jauge" aria-hidden="true"><span id="jauge"></span></div>
+      <p class="score-detail" id="score-detail">Aucun point évalué pour l'instant.</p>
+    </div>
+    <div class="actions">
+      <button type="button" class="bouton bouton--plein" id="export-word">Exporter en Word</button>
+      <button type="button" class="bouton bouton--plein" id="export-pdf">Exporter en PDF</button>
+      <button type="button" class="bouton" id="raz">Effacer la grille</button>
+    </div>
+    <p class="export-etat" id="export-etat" role="status"></p>
+  </section>
+
+  <section class="partie" id="glossaire" aria-labelledby="glossaire-titre">
+    <h2 id="glossaire-titre"><span class="sec-n">4.</span> Glossaire</h2>
+    <dl class="glossaire"><div class="gl-terme"><dt>Acronyme</dt><dd>Mot formé des initiales d’une expression, comme TND pour « trouble du neurodéveloppement ».</dd></div><div class="gl-terme"><dt>Charge cognitive</dt><dd>Quantité de ressources mentales qu’une tâche mobilise à un moment donné. Un support trop dense l’augmente sans rien apprendre de plus.</dd></div><div class="gl-terme"><dt>Contraste</dt><dd>Écart de luminosité entre le texte et son fond, exprimé par un ratio de 1:1 (aucune différence) à 21:1 (noir sur blanc).</dd></div><div class="gl-terme"><dt>Daltonisme</dt><dd>Difficulté à distinguer certaines couleurs, le plus souvent le rouge et le vert.</dd></div><div class="gl-terme"><dt>Fil d’Ariane</dt><dd>Ligne qui indique où l’on se trouve dans la présentation, par exemple « Partie 2 › Les trois types de charge ».</dd></div><div class="gl-terme"><dt>Masque des diapositives</dt><dd>Modèle de PowerPoint qui fixe une fois pour toutes les polices, les couleurs et les dispositions de toutes les diapositives.</dd></div><div class="gl-terme"><dt>Mémoire de travail</dt><dd>Capacité à garder en tête et à manipuler quelques informations pendant une tâche. Elle est limitée chez tout le monde, davantage chez certaines personnes.</dd></div><div class="gl-terme"><dt>Police à empattement</dt><dd>Police dont les lettres se terminent par de petits traits, comme Times ou Garamond. Arial, Verdana ou Calibri sont sans empattement.</dd></div><div class="gl-terme"><dt>Sous-titres</dt><dd>Texte affiché à l’écran qui transcrit ce qui est dit dans une vidéo.</dd></div><div class="gl-terme"><dt>Texte de remplacement</dt><dd>Description d’une image, invisible à l’écran, lue par les lecteurs d’écran à la place de l’image.</dd></div><div class="gl-terme"><dt>TDAH</dt><dd>Trouble déficit de l’attention avec ou sans hyperactivité, l’un des troubles du neurodéveloppement.</dd></div><div class="gl-terme"><dt>TND</dt><dd>Trouble du neurodéveloppement : autisme, TDAH, troubles « dys », trouble du développement intellectuel, notamment.</dd></div><div class="gl-terme"><dt>TSA</dt><dd>Trouble du spectre de l’autisme.</dd></div><div class="gl-terme"><dt>WCAG</dt><dd>Règles internationales pour l’accessibilité des contenus numériques. Elles fixent notamment les seuils de contraste.</dd></div></dl>
+  </section>
+
+  <footer class="pied-page">
+    <p>Vos notes et commentaires restent dans ce navigateur, sur cet appareil ; rien n'est envoyé.</p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var CLE = 'ppt-accessible-grille-v2';
+  var lignes = Array.prototype.slice.call(document.querySelectorAll('.grille tbody tr[data-num]'));
+  var total = lignes.length;
+  var titre = document.getElementById('titre-pres');
+  var lu = {};
+  try { lu = JSON.parse(localStorage.getItem(CLE) || '{}') || {}; } catch (e) { lu = {}; }
+  var LIBELLES = ['Absent', 'Présent mais à améliorer', 'Parfait'];
+
+  function note(tr) { var c = tr.querySelector('input:checked'); return c ? +c.value : null; }
+  function donnees() {
+    var partie = '', rows = [], points = 0, evalues = 0;
+    document.querySelectorAll('.grille tbody tr').forEach(function (tr) {
+      if (!tr.dataset.num) { partie = tr.textContent.trim(); return; }
+      var v = note(tr);
+      if (v !== null) { points += v; evalues++; }
+      rows.push({ partie: partie, n: tr.dataset.num,
+        titre: tr.querySelector('th').textContent.replace(/^\s*\d+\.\s*/, '').trim(),
+        note: v, com: tr.querySelector('textarea').value.trim() });
+    });
+    return { titre: titre.value.trim(), rows: rows, points: points, evalues: evalues,
+             pct: Math.round(points / (2 * total) * 100) };
+  }
+  function maj() {
+    var d = donnees(), etat = { titre: titre.value, notes: {}, coms: {} };
+    lignes.forEach(function (tr) {
+      var v = note(tr), nom = tr.querySelector('input').name;
+      tr.classList.toggle('note-0', v === 0); tr.classList.toggle('note-2', v === 2);
+      if (v !== null) etat.notes[nom] = v;
+      var c = tr.querySelector('textarea').value; if (c) etat.coms[nom] = c;
+    });
+    document.getElementById('score-points').textContent = d.points;
+    document.getElementById('score-pct').textContent = d.pct + ' %';
+    document.getElementById('jauge').style.width = d.pct + '%';
+    var absents = d.rows.filter(function (r) { return r.note === 0; }).map(function (r) { return r.titre; });
+    document.getElementById('score-detail').textContent = d.evalues === 0 ? 'Aucun point évalué pour l’instant.'
+      : d.evalues + ' point' + (d.evalues > 1 ? 's' : '') + ' évalué' + (d.evalues > 1 ? 's' : '') + ' sur ' + total + '.'
+        + (absents.length ? ' À traiter en priorité : ' + absents.join(' ; ') + '.' : '');
+    try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) {}
+  }
+  if (lu.titre) titre.value = lu.titre;
+  lignes.forEach(function (tr) {
+    var nom = tr.querySelector('input').name;
+    tr.querySelectorAll('input').forEach(function (r) {
+      if (lu.notes && lu.notes[nom] !== undefined && +r.value === lu.notes[nom]) r.checked = true;
+      r.addEventListener('change', maj);
+    });
+    var ta = tr.querySelector('textarea');
+    if (lu.coms && lu.coms[nom]) ta.value = lu.coms[nom];
+    ta.addEventListener('input', maj);
+  });
+  titre.addEventListener('input', maj);
+  document.getElementById('raz').addEventListener('click', function () {
+    lignes.forEach(function (tr) {
+      tr.querySelectorAll('input').forEach(function (r) { r.checked = false; });
+      tr.querySelector('textarea').value = '';
+    });
+    titre.value = ''; maj();
+  });
+  maj();
+
+  /* ---------- exports ---------- */
+  var etatExport = document.getElementById('export-etat');
+  function dire(t) { etatExport.textContent = t; }
+  function nomFichier(ext) {
+    var t = (titre.value.trim() || 'presentation').normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^A-Za-z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase().slice(0, 60);
+    return 'grille-accessibilite-' + (t || 'presentation') + '.' + ext;
+  }
+  function dateDuJour() {
+    return new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+  async function enregistrer(filename, data) {
+    var dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null;
+    if (!dl) {
+      /* Hors de Claude (site web classique) : téléchargement ordinaire. */
+      var blob = data instanceof Blob ? data : new Blob([data]);
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+      dire('Fichier téléchargé : ' + filename + '.');
+      return;
+    }
+    try { await dl.save({ filename: filename, data: data }); dire('Fichier prêt : ' + filename + '.'); }
+    catch (err) {
+      if (err && err.code === 'declined') dire('Export annulé.');
+      else if (err && err.code === 'rate_limited') dire('Une demande d’enregistrement est déjà ouverte : réessayez dans un instant.');
+      else dire('L’export n’a pas abouti. Réessayez.');
+    }
+  }
+
+  /* Word : un .docx minimal, assemblé ici (archive ZIP sans compression). */
+  var CRC = (function () { var t = [], c; for (var n = 0; n < 256; n++) { c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  function crc32(b) { var c = 0xFFFFFFFF; for (var i = 0; i < b.length; i++) c = CRC[(c ^ b[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+  function zip(fichiers) {
+    var enc = new TextEncoder(), parts = [], centre = [], off = 0;
+    function u16(v) { return [v & 255, (v >>> 8) & 255]; }
+    function u32(v) { return [v & 255, (v >>> 8) & 255, (v >>> 16) & 255, (v >>> 24) & 255]; }
+    fichiers.forEach(function (f) {
+      var nom = enc.encode(f.nom), data = enc.encode(f.contenu), crc = crc32(data);
+      var loc = [].concat([0x50, 0x4b, 3, 4], u16(20), u16(0x0800), u16(0), u16(0), u16(0), u32(crc), u32(data.length), u32(data.length), u16(nom.length), u16(0));
+      parts.push(new Uint8Array(loc), nom, data);
+      centre.push(new Uint8Array([].concat([0x50, 0x4b, 1, 2], u16(20), u16(20), u16(0x0800), u16(0), u16(0), u16(0), u32(crc), u32(data.length), u32(data.length), u16(nom.length), u16(0), u16(0), u16(0), u16(0), u32(0), u32(off))), nom);
+      off += loc.length + nom.length + data.length;
+    });
+    var tailleCentre = centre.reduce(function (s, p) { return s + p.length; }, 0);
+    var fin = new Uint8Array([].concat([0x50, 0x4b, 5, 6], u16(0), u16(0), u16(fichiers.length), u16(fichiers.length), u32(tailleCentre), u32(off), u16(0)));
+    return new Blob(parts.concat(centre, [fin]));
+  }
+  function x(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function para(t, opts) {
+    opts = opts || {};
+    var rpr = '<w:rPr>' + (opts.b ? '<w:b/>' : '') + (opts.sz ? '<w:sz w:val="' + opts.sz + '"/>' : '') + (opts.c ? '<w:color w:val="' + opts.c + '"/>' : '') + '</w:rPr>';
+    return '<w:p><w:pPr><w:spacing w:after="' + (opts.after == null ? 120 : opts.after) + '"/></w:pPr><w:r>' + rpr + '<w:t xml:space="preserve">' + x(t) + '</w:t></w:r></w:p>';
+  }
+  function cellule(t, w, opts) {
+    opts = opts || {};
+    return '<w:tc><w:tcPr><w:tcW w:w="' + w + '" w:type="dxa"/>' + (opts.fond ? '<w:shd w:val="clear" w:color="auto" w:fill="' + opts.fond + '"/>' : '') + (opts.span ? '<w:gridSpan w:val="' + opts.span + '"/>' : '') + '</w:tcPr>' + para(t, { b: opts.b, after: 0, sz: 20 }) + '</w:tc>';
+  }
+  function docx(d) {
+    var L = [560, 3900, 1900, 3000], B = '<w:top w:val="single" w:sz="4" w:color="BFBFBF"/><w:left w:val="single" w:sz="4" w:color="BFBFBF"/><w:bottom w:val="single" w:sz="4" w:color="BFBFBF"/><w:right w:val="single" w:sz="4" w:color="BFBFBF"/><w:insideH w:val="single" w:sz="4" w:color="BFBFBF"/><w:insideV w:val="single" w:sz="4" w:color="BFBFBF"/>';
+    var lignesT = '<w:tr><w:trPr><w:tblHeader/></w:trPr>' + cellule('N°', L[0], { b: 1, fond: 'E8EEF6' }) + cellule('Point', L[1], { b: 1, fond: 'E8EEF6' }) + cellule('Note', L[2], { b: 1, fond: 'E8EEF6' }) + cellule('Commentaire', L[3], { b: 1, fond: 'E8EEF6' }) + '</w:tr>';
+    var partie = '';
+    d.rows.forEach(function (r) {
+      if (r.partie !== partie) { partie = r.partie; lignesT += '<w:tr>' + cellule(partie, L[0] + L[1] + L[2] + L[3], { b: 1, span: 4, fond: 'F4F7FB' }) + '</w:tr>'; }
+      lignesT += '<w:tr>' + cellule(r.n, L[0]) + cellule(r.titre, L[1]) + cellule(r.note === null ? 'Non évalué' : r.note + ' – ' + LIBELLES[r.note], L[2]) + cellule(r.com, L[3]) + '</w:tr>';
+    });
+    var corps = para('Grille d’évaluation de l’accessibilité', { b: 1, sz: 36, c: '10243F' }) +
+      para('Présentation : ' + (d.titre || 'sans titre'), { sz: 24 }) +
+      para('Évaluée le ' + dateDuJour(), { sz: 22, c: '46505A' }) +
+      para('Score d’accessibilité : ' + d.points + ' / ' + (2 * total) + ' (' + d.pct + ' %), ' + d.evalues + ' point' + (d.evalues > 1 ? 's' : '') + ' évalué' + (d.evalues > 1 ? 's' : '') + ' sur ' + total, { b: 1, sz: 24, after: 240 }) +
+      '<w:tbl><w:tblPr><w:tblW w:w="9360" w:type="dxa"/><w:tblBorders>' + B + '</w:tblBorders><w:tblCellMar><w:left w:w="80" w:type="dxa"/><w:right w:w="80" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>' + L.map(function (w) { return '<w:gridCol w:w="' + w + '"/>'; }).join('') + '</w:tblGrid>' + lignesT + '</w:tbl>' +
+      para('Notes : 0 – Absent ; 1 – Présent mais à améliorer ; 2 – Parfait.', { sz: 18, c: '46505A' });
+    var doc = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>' + corps +
+      '<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>';
+    var styles = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/><w:sz w:val="22"/><w:lang w:val="fr-FR"/></w:rPr></w:rPrDefault></w:docDefaults></w:styles>';
+    return zip([
+      { nom: '[Content_Types].xml', contenu: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>' },
+      { nom: '_rels/.rels', contenu: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>' },
+      { nom: 'word/_rels/document.xml.rels', contenu: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>' },
+      { nom: 'word/document.xml', contenu: doc },
+      { nom: 'word/styles.xml', contenu: styles }
+    ]);
+  }
+  document.getElementById('export-word').addEventListener('click', function () {
+    enregistrer(nomFichier('docx'), docx(donnees()));
+  });
+
+  /* PDF : jsPDF et sa table, chargés au premier export. */
+  function charger(src) {
+    return new Promise(function (ok, ko) {
+      var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s);
+    });
+  }
+  var libsPdf = null;
+  function pdfPret() {
+    if (!libsPdf) libsPdf = charger('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
+      .then(function () { return charger('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return libsPdf;
+  }
+  function pdf(d) {
+    var J = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+    var simple = function (t) { return String(t).replace(/[’‘]/g, "'").replace(/[«»]/g, '"').replace(/ /g, ' '); };
+    J.setFont('helvetica', 'bold'); J.setFontSize(17); J.setTextColor(16, 36, 63);
+    J.text(simple('Grille d’évaluation de l’accessibilité'), 15, 20);
+    J.setFont('helvetica', 'normal'); J.setFontSize(11); J.setTextColor(26, 26, 26);
+    J.text(simple('Présentation : ' + (d.titre || 'sans titre')), 15, 29, { maxWidth: 180 });
+    J.setTextColor(70, 80, 90); J.text(simple('Évaluée le ' + dateDuJour()), 15, 35);
+    J.setFont('helvetica', 'bold'); J.setTextColor(26, 26, 26);
+    J.text(simple('Score d’accessibilité : ' + d.points + ' / ' + (2 * total) + ' (' + d.pct + ' %), ' + d.evalues + ' point' + (d.evalues > 1 ? 's' : '') + ' évalué' + (d.evalues > 1 ? 's' : '') + ' sur ' + total), 15, 43);
+    var body = [], partie = '';
+    d.rows.forEach(function (r) {
+      if (r.partie !== partie) { partie = r.partie; body.push([{ content: simple(partie), colSpan: 4, styles: { fontStyle: 'bold', fillColor: [244, 247, 251], textColor: [0, 90, 166] } }]); }
+      body.push([r.n, simple(r.titre), r.note === null ? 'Non évalué' : simple(r.note + ' – ' + LIBELLES[r.note]), simple(r.com)]);
+    });
+    J.autoTable({ startY: 49, head: [['N°', 'Point', 'Note', 'Commentaire']], body: body,
+      styles: { font: 'helvetica', fontSize: 9, cellPadding: 2, textColor: [26, 26, 26], lineColor: [201, 212, 224], lineWidth: 0.2 },
+      headStyles: { fillColor: [0, 90, 166], textColor: [255, 255, 255], fontStyle: 'bold' },
+      columnStyles: { 0: { cellWidth: 10 }, 1: { cellWidth: 70 }, 2: { cellWidth: 38 }, 3: { cellWidth: 62 } }, margin: { left: 15, right: 15 } });
+    J.setFontSize(8); J.setFont('helvetica', 'normal'); J.setTextColor(70, 80, 90);
+    J.text(simple('Notes : 0 – Absent ; 1 – Présent mais à améliorer ; 2 – Parfait.'), 15, J.lastAutoTable.finalY + 7);
+    return J.output('arraybuffer');
+  }
+  document.getElementById('export-pdf').addEventListener('click', function () {
+    dire('Préparation du PDF…');
+    pdfPret().then(function () { return enregistrer(nomFichier('pdf'), pdf(donnees())); },
+                   function () { dire('Le générateur de PDF n’a pas pu être chargé. Vérifiez la connexion et réessayez.'); });
+  });
+})();
+(function () {
+  var t = document.getElementById('ct-texte'), f = document.getElementById('ct-fond');
+  if (!t || !f) return;
+  function lum(hex) {
+    var c = [1, 3, 5].map(function (i) {
+      var v = parseInt(hex.substr(i, 2), 16) / 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  }
+  function verdict(ok, etiquette) {
+    return '<span class="' + (ok ? 'ok' : 'ko') + '">' + (ok ? '✓ ' : '✕ ') + etiquette + '</span>';
+  }
+  function maj() {
+    var a = lum(t.value), b = lum(f.value);
+    var r = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+    var ap = document.getElementById('ct-apercu');
+    ap.style.color = t.value; ap.style.background = f.value;
+    document.getElementById('ct-resultat').innerHTML =
+      'Ratio ' + r.toFixed(2).replace('.', ',') + ':1 — ' +
+      verdict(r >= 4.5, 'texte courant (4,5:1)') + ' · ' + verdict(r >= 3, 'grand texte (3:1)');
+  }
+  t.addEventListener('input', maj); f.addEventListener('input', maj); maj();
+})();
+</script>
+
+</body>
+</html>
