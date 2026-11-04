@@ -23,23 +23,11 @@
   --non: #9B1B54; --non-fond: #FBE6EF;
   --oui: #1E6B2C; --oui-fond: #E2F1E4;
   --focus: #B35A00;
-  /* Les diapositives d'exemple restent claires dans les deux thèmes :
-     elles représentent un support projeté. */
+  /* Palette propre aux diapositives d'exemple : elles représentent un support projeté. */
   --d-fond: #FFFFFF; --d-texte: #1A1A1A; --d-titre: #10243F; --d-bord: #C9D4E0; --d-doux: #5A6470; --d-accent: #005AA6;
   --police: 'Open Sans', Verdana, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --pas: 8px;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --fond: #0F1722; --surface: #172233; --texte: #E8EDF3; --doux: #B3BECB; --titre: #F2F5F9;
-    --bleu: #7DB6EE; --bord: #2E3D52; --non: #F29BBD; --non-fond: #3A1A28; --oui: #8FD39B; --oui-fond: #16301C;
-    --focus: #FFB366; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --fond: #0F1722; --surface: #172233; --texte: #E8EDF3; --doux: #B3BECB; --titre: #F2F5F9;
-  --bleu: #7DB6EE; --bord: #2E3D52; --non: #F29BBD; --non-fond: #3A1A28; --oui: #8FD39B; --oui-fond: #16301C;
-  --focus: #FFB366; color-scheme: dark;
+  color-scheme: light;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
