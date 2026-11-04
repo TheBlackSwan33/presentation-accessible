@@ -195,8 +195,12 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
 .contraste-champs { display: flex; flex-wrap: wrap; gap: 10px 20px; }
 .contraste-champs label { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: .95rem; }
 .contraste-champs input { width: 44px; height: 32px; padding: 0; border: 1px solid var(--bord); border-radius: 6px; background: var(--fond); cursor: pointer; }
-.contraste-apercu { padding: 10px 12px; border-radius: 6px; border: 1px solid var(--bord); font-size: 1.1rem; font-family: Arial, Verdana, sans-serif; }
-.contraste-resultat { font-weight: 700; font-variant-numeric: tabular-nums; }
+.contraste-etapes { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; font-size: .95rem; }
+.seuils { display: grid; gap: 8px; }
+.contraste-apercu { display: grid; gap: 6px; padding: 10px 12px; border-radius: 6px; border: 1px solid var(--bord); font-family: Arial, Verdana, sans-serif; }
+.contraste-courant { font-size: 14pt; }
+.contraste-grand { font-size: 18pt; }
+.contraste-resultat { display: grid; gap: 2px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .contraste-resultat .ok { color: var(--oui); } .contraste-resultat .ko { color: var(--non); }
 
 /* --- sommaire façon traitement de texte --- */
@@ -337,7 +341,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Arial, Verdana, Calibri plutôt que Times ou Garamond.</p>
     <p class="pourquoi">Les polices sans empattement sont généralement plus faciles à lire pour les personnes ayant des troubles de la lecture ou des difficultés visuelles.</p>
     <p class="etoile"><span aria-hidden="true">★</span> Jugée plus pertinente encore par les étudiants autistes</p>
-    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Accueil > Remplacer > Remplacer les polices : change une police partout dans le fichier, en une fois.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Cliquez sur l’onglet « Accueil », sur la flèche à côté de « Remplacer », puis sur « Remplacer les polices ». Choisissez l’ancienne et la nouvelle police, puis cliquez sur « Remplacer » : la police change partout dans le fichier.</span></li></ul></div>
   </div>
   <figure class="exemple" role="img" aria-label="Mauvais exemple : « Police avec empattements », écrit en Times. Bon exemple : « Police sans empattement », écrit en Arial.">
     <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo diapo--centre diapo--serif"><p>Police avec empattements</p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo diapo--centre"><p>Police sans empattement</p></div></div></div>
@@ -349,7 +353,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">18 points au minimum.</p>
     <p class="pourquoi">Les personnes ayant des troubles visuels ou des difficultés de lecture bénéficient grandement de caractères suffisamment grands.</p>
     
-    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Masque des diapositives : réglez 18 points au minimum dans le masque, toutes les diapositives suivent.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Cliquez sur l’onglet « Affichage », puis sur « Masque des diapositives ». Cliquez sur la grande vignette en haut à gauche, sélectionnez le texte et réglez sa taille à 18 points au minimum. Fermez ensuite le mode Masque : toutes les diapositives suivent.</span></li></ul></div>
   </div>
   <figure class="exemple" role="img" aria-label="Mauvais exemple : « Texte en 10 points », en très petits caractères. Bon exemple : « Texte en 18 points », en grands caractères.">
     <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo diapo--centre diapo--petit"><p>Texte en 10 points</p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo diapo--centre"><p>Texte en 18 points</p></div></div></div>
@@ -359,17 +363,22 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
   <div class="regle-texte">
     <h4><span class="num">3.</span> Contraste entre le texte et le fond</h4>
     <p class="resume">Du texte foncé sur fond clair, ou l’inverse.</p>
-    <p class="pourquoi">Un bon contraste améliore la lisibilité pour tous et est indispensable pour les personnes ayant des sensibilités visuelles.</p>
+    <p class="pourquoi">Un bon contraste améliore la lisibilité pour tous et est indispensable pour les personnes avec des difficultés visuelles.</p>
     
-    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">Seuils</span><span>WCAG niveau AA : 4,5:1 au minimum pour le texte courant ; 3:1 pour le grand texte (18 points, ou 14 points en gras). Niveau AAA : 7:1, et 4,5:1 pour le grand texte.</span></li><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a> : saisissez la couleur du texte et celle du fond, le ratio s’affiche.</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale les textes au contraste insuffisant.</span></li><li class="outil outil--widget">
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">Seuils</span><div class="seuils"><p>Le ratio mesure l’écart de luminosité entre le texte et le fond. Plus il est élevé, plus le texte se détache.</p><p><strong>Texte courant :</strong> moins de 18 points, ou moins de 14 points s’il est en gras. Par exemple, une légende ou une source en bas de diapositive. Ratio minimal selon les WCAG : 4,5:1 (niveau AA) ou 7:1 (niveau AAA).</p><p><strong>Grand texte :</strong> 18 points ou plus, ou 14 points ou plus s’il est en gras. Par exemple, un titre ou le corps d’une diapositive. Ratio minimal selon les WCAG : 3:1 (niveau AA) ou 4,5:1 (niveau AAA).</p></div></li><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a> : saisissez la couleur du texte et celle du fond, le ratio s’affiche.</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Cliquez sur l’onglet « Révision », puis sur « Vérifier l’accessibilité ». Le panneau qui s’ouvre signale les textes au contraste insuffisant.</span></li><li class="outil outil--widget">
 <div class="contraste" data-contraste>
   <p class="contraste-titre" id="ct-titre">Testez vos deux couleurs</p>
+  <ol class="contraste-etapes">
+    <li>Cliquez sur le carré « Texte » et choisissez la couleur de votre texte.</li>
+    <li>Cliquez sur le carré « Fond » et choisissez la couleur de votre fond.</li>
+    <li>Regardez l’aperçu et lisez le résultat : il indique si le contraste est suffisant pour chaque taille de texte.</li>
+  </ol>
   <div class="contraste-champs">
     <label for="ct-texte">Texte <input type="color" id="ct-texte" value="#1a1a1a"></label>
     <label for="ct-fond">Fond <input type="color" id="ct-fond" value="#ffffff"></label>
   </div>
-  <p class="contraste-apercu" id="ct-apercu">Exemple de texte de diapositive</p>
-  <p class="contraste-resultat" id="ct-resultat" aria-live="polite"></p>
+  <div class="contraste-apercu" id="ct-apercu"><p class="contraste-courant">Texte courant, ici en 14 points</p><p class="contraste-grand">Grand texte, ici en 18 points</p></div>
+  <div class="contraste-resultat" id="ct-resultat" aria-live="polite"></div>
 </div></li></ul></div>
   </div>
   <figure class="exemple" role="img" aria-label="Mauvais exemple : « Contraste faible », en gris très clair sur fond blanc. Bon exemple : « Contraste fort », en noir sur fond blanc.">
@@ -382,7 +391,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Un fond clair et sans motif.</p>
     <p class="pourquoi">Les fonds texturés ou avec des images créent des distractions visuelles et réduisent la lisibilité du contenu.</p>
     
-    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale le texte trop peu contrasté avec son fond.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Cliquez sur l’onglet « Révision », puis sur « Vérifier l’accessibilité ». Le panneau qui s’ouvre signale le texte trop peu contrasté avec son fond.</span></li></ul></div>
   </div>
   <figure class="exemple" role="img" aria-label="Mauvais exemple : « Fond à motifs », écrit sur un fond très chargé. Bon exemple : « Fond uni », écrit sur un fond blanc.">
     <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo diapo--centre diapo--fond-charge"><p>Fond à motifs</p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo diapo--centre"><p>Fond uni</p></div></div></div>
@@ -406,7 +415,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Ne jamais faire porter une information par la seule couleur.</p>
     <p class="pourquoi">Il faut choisir des couleurs visibles par tous, y compris les personnes daltoniennes, et doubler l&#x27;information colorée par un autre indice.</p>
     
-    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.color-blindness.com/coblis-color-blindness-simulator/">Coblis</a> : déposez une capture de la diapositive pour la voir comme une personne daltonienne. L’image reste dans votre navigateur.</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Nuances de gris : si l’information disparaît en gris, elle repose sur la seule couleur.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.color-blindness.com/coblis-color-blindness-simulator/">Coblis</a> : déposez une capture de la diapositive pour la voir comme une personne daltonienne. L’image reste dans votre navigateur.</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Cliquez sur l’onglet « Affichage », puis sur « Nuances de gris ». Si l’information disparaît en gris, elle repose sur la seule couleur.</span></li></ul></div>
   </div>
   <figure class="exemple" role="img" aria-label="Mauvais exemple : exercice 1 avec une pastille verte, exercice 2 avec une pastille rouge, sans autre indication. Bon exemple : les mêmes couleurs, avec « ✓ Réussi » et « ✕ Échoué ».">
     <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo diapo--centre"><p class="m-etat">Exercice 1 <i class="m-pastille m-vert"></i></p><p class="m-etat">Exercice 2 <i class="m-pastille m-rouge"></i></p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo diapo--centre"><p class="m-etat">Exercice 1 <i class="m-pastille m-vert">✓</i> Réussi</p><p class="m-etat">Exercice 2 <i class="m-pastille m-rouge">✕</i> Échoué</p></div></div></div>
@@ -422,7 +431,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Une diapositive de sommaire en ouverture.</p>
     <p class="pourquoi">Le sommaire permet au public de se repérer dans la structure de la présentation. Cela réduit l’anxiété liée à l’incertitude et aide à la planification mentale.</p>
     
-    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Insertion > Zoom > Zoom de résumé : crée une diapositive de sommaire à partir des sections choisies.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Cliquez sur l’onglet « Insertion », sur « Zoom », puis sur « Zoom de résumé ». Choisissez les sections à inclure, puis cliquez sur « Insérer » : la diapositive de sommaire est créée.</span></li></ul></div>
   </div>
   <figure class="exemple" role="img" aria-label="Exemple de diapositive « Sommaire » : 1 Introduction ; 2 Méthode ; 3 Résultats ; 4 Conclusion.">
     <div class="diapo"><p class="m-dtitre">Sommaire</p><div class="m-corps"><ol class="m-ol"><li><span class="m-rond">1</span>Introduction</li><li><span class="m-rond">2</span>Méthode</li><li><span class="m-rond">3</span>Résultats</li><li><span class="m-rond">4</span>Conclusion</li></ol></div></div>
@@ -434,7 +443,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Un numéro en pied de chaque diapositive.</p>
     <p class="pourquoi">Le numéro aide le public à se repérer dans la présentation. C’est particulièrement utile pour les personnes ayant des troubles de l’attention.</p>
     
-    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Insertion > En-tête et pied de page > cochez « Numéro de diapositive ».</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Cliquez sur l’onglet « Insertion », puis sur « Numéro de diapositive ». Cochez la case « Numéro de diapositive », puis cliquez sur « Appliquer partout ».</span></li></ul></div>
   </div>
   <figure class="exemple" role="img" aria-label="Exemple de diapositive avec le numéro 12 en bas à droite.">
     <div class="diapo"><p class="m-dtitre">Diapositive numérotée</p><div class="m-corps"><p>Le numéro est en bas à droite.</p></div><p class="m-pied">12</p></div>
@@ -446,7 +455,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">« 12 / 34 » plutôt que « 12 ».</p>
     <p class="pourquoi">Indiquer le nombre total permet au public d’anticiper la durée restante. Cette information réduit l’anxiété et aide à la gestion de l’attention.</p>
     <p class="etoile"><span aria-hidden="true">★</span> Jugée plus pertinente encore par les étudiants autistes</p>
-    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Masque des diapositives : ajoutez « / 34 » à côté du champ de numéro, une fois pour toutes les diapositives.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Cliquez sur l’onglet « Affichage », puis sur « Masque des diapositives ». Cliquez sur la grande vignette en haut à gauche, puis ajoutez « / 34 » à côté du champ de numéro. Fermez ensuite le mode Masque : toutes les diapositives suivent.</span></li></ul></div>
   </div>
   <figure class="exemple" role="img" aria-label="Mauvais exemple : le seul numéro « 12 » en bas à droite. Bon exemple : « 12 / 34 » en bas à droite.">
     <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo"><p class="m-dtitre">Numéro seul</p><p class="m-pied">12</p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo"><p class="m-dtitre">Numéro et total</p><p class="m-pied">12 / 34</p></div></div></div>
@@ -470,7 +479,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Mêmes couleurs, mêmes polices, mêmes dispositions.</p>
     <p class="pourquoi">L&#x27;homogénéité graphique crée un environnement prévisible qui réduit l&#x27;anxiété et facilite le traitement de l&#x27;information.</p>
     
-    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Masque des diapositives : polices, couleurs et dispositions définies une fois, pour tout le diaporama.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Cliquez sur l’onglet « Affichage », puis sur « Masque des diapositives ». Cliquez sur la grande vignette en haut à gauche, puis définissez les polices, les couleurs et les dispositions. Fermez ensuite le mode Masque : tout le diaporama suit.</span></li></ul></div>
   </div>
   <figure class="exemple" role="img" aria-label="Mauvais exemple : trois diapositives aux couleurs et polices toutes différentes. Bon exemple : trois diapositives avec les mêmes couleurs, polices et dispositions.">
     <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="m-trip m-trip--inc"><div class="m-mini"><span>Introduction</span><i></i><i></i></div><div class="m-mini"><span>Méthode</span><i></i><i></i></div><div class="m-mini"><span>Résultats</span><i></i><i></i></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="m-trip"><div class="m-mini"><span>Introduction</span><i></i><i></i></div><div class="m-mini"><span>Méthode</span><i></i><i></i></div><div class="m-mini"><span>Résultats</span><i></i><i></i></div></div></div></div>
@@ -510,7 +519,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Une image pertinente, décrite en mots, avec un texte de remplacement.</p>
     <p class="pourquoi">Limiter à une image ou un graphique par diapositive évite la surcharge visuelle et améliore la compréhension. L’image doit aussi porter un texte de remplacement : c’est lui que lit un lecteur d’écran.</p>
     
-    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Clic droit sur l’image > Afficher le texte de remplacement. Décrivez en une ou deux phrases ce que l’image apporte (par exemple « Courbe : la performance chute au-delà de sept éléments »), sans recopier le nom du fichier. Une image purement décorative se marque « Décorative ».</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale les images sans texte de remplacement.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Faites un clic droit sur l’image, puis cliquez sur « Afficher le texte de remplacement ». Décrivez en une ou deux phrases ce que l’image apporte (par exemple « Courbe : la performance chute au-delà de sept éléments »), sans recopier le nom du fichier. Si l’image est purement décorative, cochez la case prévue à cet effet.</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Cliquez sur l’onglet « Révision », puis sur « Vérifier l’accessibilité ». Le panneau qui s’ouvre signale les images sans texte de remplacement.</span></li></ul></div>
   </div>
   <figure class="exemple" role="img" aria-label="Mauvais exemple : quatre images sans légende. Bon exemple : une seule image, avec une phrase qui la décrit.">
     <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo"><p class="m-dtitre">Quatre images</p><div class="m-corps"><div class="m-images m-images--4"><span></span><span></span><span></span><span></span></div></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo"><p class="m-dtitre">Une seule image</p><div class="m-corps"><div class="m-images m-images--1"><span></span></div><p>Une phrase décrit l’image.</p></div></div></div></div>
@@ -558,7 +567,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Toutes les vidéos, y compris les extraits courts.</p>
     <p class="pourquoi">Les sous-titres aident les personnes ayant des difficultés de traitement auditif ou de compréhension d’une langue, et permettent un meilleur suivi du contenu.</p>
     <p class="etoile"><span aria-hidden="true">★</span> Jugée plus pertinente encore par les étudiants autistes</p>
-    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale les vidéos insérées sans sous-titres.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Cliquez sur l’onglet « Révision », puis sur « Vérifier l’accessibilité ». Le panneau qui s’ouvre signale les vidéos insérées sans sous-titres.</span></li></ul></div>
   </div>
   <figure class="exemple" role="img" aria-label="Exemple de diapositive « Vidéo sous-titrée » : une vidéo avec le sous-titre « Bonjour et bienvenue à tous. »">
     <div class="diapo"><p class="m-dtitre">Vidéo sous-titrée</p><div class="m-corps"><div class="m-video"><span class="m-play">▶</span><span class="m-st">Bonjour et bienvenue à tous.</span></div></div></div>
@@ -907,7 +916,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
   }
   function verdict(ok, etiquette) {
-    return '<span class="' + (ok ? 'ok' : 'ko') + '">' + (ok ? '✓ ' : '✕ ') + etiquette + '</span>';
+    return '<span class="' + (ok ? 'ok' : 'ko') + '">' + (ok ? '✓ ' : '✕ ') + etiquette + ' : contraste ' + (ok ? 'suffisant' : 'insuffisant') + '</span>';
   }
   function maj() {
     var a = lum(t.value), b = lum(f.value);
@@ -915,8 +924,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     var ap = document.getElementById('ct-apercu');
     ap.style.color = t.value; ap.style.background = f.value;
     document.getElementById('ct-resultat').innerHTML =
-      'Ratio ' + r.toFixed(2).replace('.', ',') + ':1 — ' +
-      verdict(r >= 4.5, 'texte courant (4,5:1)') + ' · ' + verdict(r >= 3, 'grand texte (3:1)');
+      '<span>Ratio de vos deux couleurs : ' + r.toFixed(2).replace('.', ',') + ':1</span>' +
+      verdict(r >= 4.5, 'Texte courant (4,5:1 minimum)') + verdict(r >= 3, 'Grand texte (3:1 minimum)');
   }
   t.addEventListener('input', maj); f.addEventListener('input', maj); maj();
 })();
