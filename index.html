@@ -86,12 +86,11 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
 
 .regles { list-style: none; padding: 0; margin: calc(var(--pas) * 3) 0 0; display: grid; }
 .regle {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: calc(var(--pas) * 2) calc(var(--pas) * 5);
-  align-items: start; padding-block: calc(var(--pas) * 4); border-top: 1px solid var(--bord);
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: calc(var(--pas) * 3);
+  padding-block: calc(var(--pas) * 4); border-top: 1px solid var(--bord);
   scroll-margin-top: 16px;
 }
-@media (max-width: 760px) { .regle { grid-template-columns: minmax(0, 1fr); } }
-.regle-texte { display: grid; gap: var(--pas); min-width: 0; }
+.regle-texte { display: grid; gap: var(--pas); min-width: 0; max-width: 46rem; }
 .regle-tete { display: flex; align-items: flex-start; gap: 12px; }
 .regle h3 { font-size: 1.25rem; }
 .regle h3 label { cursor: pointer; }
@@ -108,8 +107,9 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
 /* --- exemples --- */
 .exemple { margin: 0; min-width: 0; }
 .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-@media (max-width: 460px) { .duo { grid-template-columns: 1fr; } }
-.duo-etq { font-size: .85rem; font-weight: 700; margin-bottom: 6px; display: flex; gap: 6px; align-items: center; }
+@media (max-width: 820px) { .duo { grid-template-columns: 1fr; } }
+@media (min-width: 821px) { .exemple > .diapo, .exemple > .m-doc, .exemple > .m-mail { max-width: calc(50% - 6px); } }
+.duo-etq { font-size: 1rem; font-weight: 700; margin-bottom: 6px; display: flex; gap: 6px; align-items: center; }
 .duo-bloc--non .duo-etq { color: var(--non); }
 .duo-bloc--oui .duo-etq { color: var(--oui); }
 .duo-etq span { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; font-size: .75rem; }
@@ -117,23 +117,23 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
 .duo-bloc--oui .duo-etq span { background: var(--oui-fond); }
 
 .diapo, .m-doc {
-  font-family: Arial, Verdana, sans-serif; font-size: .82rem; line-height: 1.4;
+  font-family: Arial, Verdana, sans-serif; font-size: 1.2rem; line-height: 1.4;
   color: var(--d-texte); background: var(--d-fond); border: 1px solid var(--d-bord);
-  border-radius: 6px; padding: 12px 14px; min-height: 9.5rem; position: relative;
+  border-radius: 6px; padding: 18px 20px; min-height: 13rem; position: relative;
   box-shadow: 0 1px 0 var(--d-bord);
 }
-.m-dtitre { font-weight: 700; font-size: 1.05em; color: var(--d-titre); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px solid var(--d-bord); }
+.m-dtitre { font-weight: 700; font-size: 1.15em; color: var(--d-titre); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px solid var(--d-bord); }
 .m-corps { display: grid; gap: 6px; }
 .m-ul, .m-ol { margin: 0; padding: 0 0 0 1.1em; display: grid; gap: 4px; }
 .m-ol { list-style: none; padding: 0; }
 .m-ol li { display: flex; gap: 8px; align-items: baseline; }
 .m-rond { flex: none; display: inline-grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: var(--d-accent); color: var(--d-fond); font-weight: 700; font-size: .85em; }
-.m-champ { display: grid; grid-template-columns: 7.2em minmax(0, 1fr); gap: 8px; }
+.m-champ { display: grid; grid-template-columns: 6.6em minmax(0, 1fr); gap: 8px; overflow-wrap: anywhere; hyphens: auto; }
 .m-champ span { overflow-wrap: anywhere; }
 .m-champ span { font-weight: 700; color: var(--d-accent); }
-.m-pied { position: absolute; right: 12px; bottom: 6px; font-size: .78em; color: var(--d-doux); font-variant-numeric: tabular-nums; }
-.diapo:has(.m-pied) { padding-bottom: 26px; }
-.m-ariane { font-size: .75em; color: var(--d-doux); margin-bottom: 6px; }
+.m-pied { position: absolute; right: 16px; bottom: 10px; font-size: .95em; font-weight: 700; color: var(--d-doux); font-variant-numeric: tabular-nums; }
+.diapo:has(.m-pied) { padding-bottom: 42px; }
+.m-ariane { font-size: .85em; color: var(--d-doux); margin-bottom: 6px; }
 .m-legende { display: flex; flex-wrap: wrap; gap: 6px 14px; }
 .m-legende span { display: inline-flex; align-items: center; gap: 6px; }
 .m-pastille { display: inline-grid; place-items: center; width: 1.3em; height: 1.3em; border-radius: 4px; font-style: normal; font-weight: 700; color: var(--d-fond); font-size: .85em; }
@@ -150,9 +150,9 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
 .m-notes span { font-size: .78em; font-weight: 700; color: var(--d-doux); }
 .m-notes i { display: block; height: 1px; background: var(--d-bord); margin-top: 8px; }
 .m-doc { border-left: 4px solid var(--d-accent); }
-.m-mail { font-family: Arial, Verdana, sans-serif; font-size: .82rem; line-height: 1.4; color: var(--d-texte); background: var(--d-fond); border: 1px solid var(--d-bord); border-radius: 6px; overflow: hidden; }
+.m-mail { font-family: Arial, Verdana, sans-serif; font-size: 1.2rem; line-height: 1.4; color: var(--d-texte); background: var(--d-fond); border: 1px solid var(--d-bord); border-radius: 6px; overflow: hidden; }
 .m-mail-tete { background: #EEF2F7; padding: 8px 12px; display: grid; gap: 2px; border-bottom: 1px solid var(--d-bord); }
-.m-mail-l { display: grid; grid-template-columns: 3.6em minmax(0, 1fr); gap: 6px; }
+.m-mail-l { display: grid; grid-template-columns: 3.2em minmax(0, 1fr); gap: 6px; }
 .m-mail-l span { color: var(--d-doux); font-weight: 700; }
 .m-mail .m-corps { padding: 10px 12px; }
 .m-support { font-size: .75em; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--d-doux); margin-bottom: 6px; }
@@ -168,12 +168,14 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
                     radial-gradient(circle at 75% 70%, rgba(0, 170, 200, .5) 0 18px, transparent 19px);
   background-size: auto, 60px 60px, 70px 70px;
 }
-.diapo--petit .m-corps { font-size: .6em; }
+.diapo--centre { display: grid; align-content: center; justify-items: center; gap: 10px; text-align: center; font-size: 1.5rem; }
+.m-etat { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }
+.diapo--petit p { font-size: .56em; }
 .diapo--faible-contraste, .diapo--faible-contraste .m-dtitre { color: #D2D9E0; border-color: #E8ECF0; }
-.diapo--dense .m-corps { font-size: .7em; line-height: 1.25; text-align: justify; }
+.diapo--dense .m-corps { font-size: .78em; line-height: 1.25; text-align: justify; }
 .m-trip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.m-mini { border: 1px solid var(--d-bord); border-radius: 4px; padding: 6px; background: var(--d-fond); min-height: 6.5rem; font-family: Arial, sans-serif; }
-.m-mini span { display: block; font-weight: 700; font-size: .68rem; color: var(--d-titre); border-bottom: 2px solid var(--d-accent); padding-bottom: 3px; margin-bottom: 6px; overflow-wrap: anywhere; }
+.m-mini { border: 1px solid var(--d-bord); border-radius: 4px; padding: 6px; background: var(--d-fond); min-height: 8.5rem; font-family: Arial, sans-serif; }
+.m-mini span { display: block; font-weight: 700; font-size: clamp(.72rem, 1.5vw, .95rem); color: var(--d-titre); border-bottom: 2px solid var(--d-accent); padding-bottom: 3px; margin-bottom: 6px; overflow-wrap: anywhere; }
 .m-mini i { display: block; height: 4px; border-radius: 2px; background: var(--d-bord); margin-top: 6px; }
 .m-mini i + i { width: 70%; }
 .m-trip--inc .m-mini:nth-child(1) { background: #FFF6C9; }
@@ -335,10 +337,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Arial, Verdana, Calibri plutôt que Times ou Garamond.</p>
     <p class="pourquoi">Les polices sans empattement sont généralement plus faciles à lire pour les personnes ayant des troubles de la lecture ou des difficultés visuelles.</p>
     <p class="etoile"><span aria-hidden="true">★</span> Jugée plus pertinente encore par les étudiants autistes</p>
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Accueil > Remplacer > Remplacer les polices : change une police partout dans le fichier, en une fois.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Accueil > Remplacer > Remplacer les polices : change une police partout dans le fichier, en une fois.</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple. À éviter : le texte en police à empattements (Times). À privilégier : le même texte en police sans empattement — « La mémoire de travail » : Système de maintien temporaire de l&#x27;information pendant une tâche cognitive..">
-    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo diapo--serif"><p class="m-dtitre">La mémoire de travail</p><div class="m-corps"><p>Système de maintien temporaire de l&#x27;information pendant une tâche cognitive.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">La mémoire de travail</p><div class="m-corps"><p>Système de maintien temporaire de l&#x27;information pendant une tâche cognitive.</p></div></div></div></div>
+  <figure class="exemple" role="img" aria-label="Mauvais exemple : « Police avec empattements », écrit en Times. Bon exemple : « Police sans empattement », écrit en Arial.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo diapo--centre diapo--serif"><p>Police avec empattements</p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo diapo--centre"><p>Police sans empattement</p></div></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-taille">
@@ -347,10 +349,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">18 points au minimum.</p>
     <p class="pourquoi">Les personnes ayant des troubles visuels ou des difficultés de lecture bénéficient grandement de caractères suffisamment grands.</p>
     
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Masque des diapositives : réglez 18 points au minimum dans le masque, toutes les diapositives suivent.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Masque des diapositives : réglez 18 points au minimum dans le masque, toutes les diapositives suivent.</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple. À éviter : le texte en très petits caractères. À privilégier : le texte en grands caractères, raccourci — « Définition » : La charge cognitive désigne la quantité de ressources mentales mobilisées par une tâche..">
-    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo diapo--petit"><p class="m-dtitre">Définition</p><div class="m-corps"><p>La charge cognitive désigne la quantité de ressources mentales mobilisées par une tâche à un instant donné.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Définition</p><div class="m-corps"><p>La charge cognitive désigne la quantité de ressources mentales mobilisées par une tâche.</p></div></div></div></div>
+  <figure class="exemple" role="img" aria-label="Mauvais exemple : « Texte en 10 points », en très petits caractères. Bon exemple : « Texte en 18 points », en grands caractères.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo diapo--centre diapo--petit"><p>Texte en 10 points</p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo diapo--centre"><p>Texte en 18 points</p></div></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-contraste">
@@ -359,7 +361,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Du texte foncé sur fond clair, ou l’inverse.</p>
     <p class="pourquoi">Un bon contraste améliore la lisibilité pour tous et est indispensable pour les personnes ayant des sensibilités visuelles.</p>
     
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">Seuils</span><span>WCAG niveau AA : 4,5:1 au minimum pour le texte courant ; 3:1 pour le grand texte (18 points, ou 14 points en gras). Niveau AAA : 7:1, et 4,5:1 pour le grand texte.</span></li><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a> : saisissez la couleur du texte et celle du fond, le ratio s’affiche.</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale les textes au contraste insuffisant.</span></li><li class="outil outil--widget">
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">Seuils</span><span>WCAG niveau AA : 4,5:1 au minimum pour le texte courant ; 3:1 pour le grand texte (18 points, ou 14 points en gras). Niveau AAA : 7:1, et 4,5:1 pour le grand texte.</span></li><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a> : saisissez la couleur du texte et celle du fond, le ratio s’affiche.</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale les textes au contraste insuffisant.</span></li><li class="outil outil--widget">
 <div class="contraste" data-contraste>
   <p class="contraste-titre" id="ct-titre">Testez vos deux couleurs</p>
   <div class="contraste-champs">
@@ -370,8 +372,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
   <p class="contraste-resultat" id="ct-resultat" aria-live="polite"></p>
 </div></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple. À éviter : le texte en gris très clair sur fond blanc, presque illisible. À privilégier : le texte foncé sur fond clair — « Trois conditions » : Attention disponible ; Support structuré ; Temps suffisant.">
-    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo diapo--faible-contraste"><p class="m-dtitre">Trois conditions</p><div class="m-corps"><ul class="m-ul"><li>Attention disponible</li><li>Support structuré</li><li>Temps suffisant</li></ul></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Trois conditions</p><div class="m-corps"><ul class="m-ul"><li>Attention disponible</li><li>Support structuré</li><li>Temps suffisant</li></ul></div></div></div></div>
+  <figure class="exemple" role="img" aria-label="Mauvais exemple : « Contraste faible », en gris très clair sur fond blanc. Bon exemple : « Contraste fort », en noir sur fond blanc.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo diapo--centre diapo--faible-contraste"><p>Contraste faible</p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo diapo--centre"><p>Contraste fort</p></div></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-fond">
@@ -380,10 +382,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Un fond clair et sans motif.</p>
     <p class="pourquoi">Les fonds texturés ou avec des images créent des distractions visuelles et réduisent la lisibilité du contenu.</p>
     
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale le texte trop peu contrasté avec son fond.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale le texte trop peu contrasté avec son fond.</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple. À éviter : le texte posé sur un fond à motifs chargé. À privilégier : le même texte sur fond uni — « Les trois mécanismes » : Encodage ; Stockage ; Récupération.">
-    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo diapo--fond-charge"><p class="m-dtitre">Les trois mécanismes</p><div class="m-corps"><ul class="m-ul"><li>Encodage</li><li>Stockage</li><li>Récupération</li></ul></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Les trois mécanismes</p><div class="m-corps"><ul class="m-ul"><li>Encodage</li><li>Stockage</li><li>Récupération</li></ul></div></div></div></div>
+  <figure class="exemple" role="img" aria-label="Mauvais exemple : « Fond à motifs », écrit sur un fond très chargé. Bon exemple : « Fond uni », écrit sur un fond blanc.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo diapo--centre diapo--fond-charge"><p>Fond à motifs</p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo diapo--centre"><p>Fond uni</p></div></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-superposition">
@@ -394,8 +396,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     
     
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple. À éviter : la phrase à la fois en gras, souligné et italique. À privilégier : la phrase en gras seulement — « Point important » : L’évaluation finale compte pour 60 % de la note..">
-    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo"><p class="m-dtitre">Point important</p><div class="m-corps"><p><strong><u><em>L’évaluation finale compte pour 60 % de la note.</em></u></strong></p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Point important</p><div class="m-corps"><p><strong>L’évaluation finale compte pour 60 % de la note.</strong></p></div></div></div></div>
+  <figure class="exemple" role="img" aria-label="Mauvais exemple : « Gras, souligné et italique », avec les trois effets à la fois. Bon exemple : « Gras seulement », avec un seul effet.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo diapo--centre"><p><strong><u><em>Gras, souligné et italique</em></u></strong></p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo diapo--centre"><p><strong>Gras seulement</strong></p></div></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-couleurs">
@@ -404,10 +406,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Ne jamais faire porter une information par la seule couleur.</p>
     <p class="pourquoi">Il faut choisir des couleurs visibles par tous, y compris les personnes daltoniennes, et doubler l&#x27;information colorée par un autre indice.</p>
     
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.color-blindness.com/coblis-color-blindness-simulator/">Coblis</a> : déposez une capture de la diapositive pour la voir comme une personne daltonienne. L’image reste dans votre navigateur.</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Nuances de gris : si l’information disparaît en gris, elle repose sur la seule couleur.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.color-blindness.com/coblis-color-blindness-simulator/">Coblis</a> : déposez une capture de la diapositive pour la voir comme une personne daltonienne. L’image reste dans votre navigateur.</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Nuances de gris : si l’information disparaît en gris, elle repose sur la seule couleur.</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple. À éviter : acquis en vert et non acquis en rouge, distingués par la seule couleur. À privilégier : les mêmes couleurs, doublées d’un symbole : coche pour acquis, croix pour non acquis — « Résultats du groupe » : Acquis, Non acquis ; Chaque compétence porte aussi un symbole..">
-    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo"><p class="m-dtitre">Résultats du groupe</p><div class="m-corps"><p class="m-legende"><span><i class="m-pastille m-vert"></i>Acquis</span><span><i class="m-pastille m-rouge"></i>Non acquis</span></p><p>Repérez en couleur les compétences non acquises.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Résultats du groupe</p><div class="m-corps"><p class="m-legende"><span><i class="m-pastille m-vert">✓</i>Acquis</span><span><i class="m-pastille m-rouge">✕</i>Non acquis</span></p><p>Chaque compétence porte aussi un symbole.</p></div></div></div></div>
+  <figure class="exemple" role="img" aria-label="Mauvais exemple : exercice 1 avec une pastille verte, exercice 2 avec une pastille rouge, sans autre indication. Bon exemple : les mêmes couleurs, avec « ✓ Réussi » et « ✕ Échoué ».">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo diapo--centre"><p class="m-etat">Exercice 1 <i class="m-pastille m-vert"></i></p><p class="m-etat">Exercice 2 <i class="m-pastille m-rouge"></i></p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo diapo--centre"><p class="m-etat">Exercice 1 <i class="m-pastille m-vert">✓</i> Réussi</p><p class="m-etat">Exercice 2 <i class="m-pastille m-rouge">✕</i> Échoué</p></div></div></div>
   </figure>
 </li></ol>
 </section>
@@ -420,10 +422,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Une diapositive de sommaire en ouverture.</p>
     <p class="pourquoi">Le sommaire permet au public de se repérer dans la structure de la présentation. Cela réduit l’anxiété liée à l’incertitude et aide à la planification mentale.</p>
     
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Insertion > Zoom > Zoom de résumé : crée une diapositive de sommaire à partir des sections choisies.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Insertion > Zoom > Zoom de résumé : crée une diapositive de sommaire à partir des sections choisies.</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Au programme » : Ce qu’est la charge cognitive ; Les trois types de charge ; Ce que cela change au quotidien ; Questions ; en pied de page : « 20 minutes ».">
-    <div class="diapo"><p class="m-dtitre">Au programme</p><div class="m-corps"><ol class="m-ol"><li><span class="m-rond">1</span>Ce qu’est la charge cognitive</li><li><span class="m-rond">2</span>Les trois types de charge</li><li><span class="m-rond">3</span>Ce que cela change au quotidien</li><li><span class="m-rond">4</span>Questions</li></ol></div><p class="m-pied">20 minutes</p></div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Sommaire » : 1 Introduction ; 2 Méthode ; 3 Résultats ; 4 Conclusion.">
+    <div class="diapo"><p class="m-dtitre">Sommaire</p><div class="m-corps"><ol class="m-ol"><li><span class="m-rond">1</span>Introduction</li><li><span class="m-rond">2</span>Méthode</li><li><span class="m-rond">3</span>Résultats</li><li><span class="m-rond">4</span>Conclusion</li></ol></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-numero">
@@ -432,10 +434,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Un numéro en pied de chaque diapositive.</p>
     <p class="pourquoi">Le numéro aide le public à se repérer dans la présentation. C’est particulièrement utile pour les personnes ayant des troubles de l’attention.</p>
     
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Insertion > En-tête et pied de page > cochez « Numéro de diapositive ».</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Insertion > En-tête et pied de page > cochez « Numéro de diapositive ».</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Les trois types de charge » : Charge intrinsèque ; Charge extrinsèque ; Charge essentielle ; en pied de page : « 12 ».">
-    <div class="diapo"><p class="m-dtitre">Les trois types de charge</p><div class="m-corps"><ul class="m-ul"><li>Charge intrinsèque</li><li>Charge extrinsèque</li><li>Charge essentielle</li></ul></div><p class="m-pied">12</p></div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive avec le numéro 12 en bas à droite.">
+    <div class="diapo"><p class="m-dtitre">Diapositive numérotée</p><div class="m-corps"><p>Le numéro est en bas à droite.</p></div><p class="m-pied">12</p></div>
   </figure>
 </li>
 <li class="regle" id="pp-total">
@@ -444,10 +446,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">« 12 / 34 » plutôt que « 12 ».</p>
     <p class="pourquoi">Indiquer le nombre total permet au public d’anticiper la durée restante. Cette information réduit l’anxiété et aide à la gestion de l’attention.</p>
     <p class="etoile"><span aria-hidden="true">★</span> Jugée plus pertinente encore par les étudiants autistes</p>
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Masque des diapositives : ajoutez « / 34 » à côté du champ de numéro, une fois pour toutes les diapositives.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Masque des diapositives : ajoutez « / 34 » à côté du champ de numéro, une fois pour toutes les diapositives.</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple. À éviter : le seul numéro « 12 » en pied de page. À privilégier : « 12 / 34 » en pied de page — « Les trois types de charge » : Intrinsèque ; Extrinsèque.">
-    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo"><p class="m-dtitre">Les trois types de charge</p><div class="m-corps"><ul class="m-ul"><li>Intrinsèque</li><li>Extrinsèque</li></ul></div><p class="m-pied">12</p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Les trois types de charge</p><div class="m-corps"><ul class="m-ul"><li>Intrinsèque</li><li>Extrinsèque</li></ul></div><p class="m-pied">12 / 34</p></div></div></div>
+  <figure class="exemple" role="img" aria-label="Mauvais exemple : le seul numéro « 12 » en bas à droite. Bon exemple : « 12 / 34 » en bas à droite.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo"><p class="m-dtitre">Numéro seul</p><p class="m-pied">12</p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo"><p class="m-dtitre">Numéro et total</p><p class="m-pied">12 / 34</p></div></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-ariane">
@@ -458,8 +460,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     
     
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple de diapositive « La charge extrinsèque », avec le fil d’Ariane « Partie 2 › Les trois types de charge › Charge extrinsèque » : Celle qu’ajoute la façon de présenter l’information, sans rien apprendre de plus. ; en pied de page : « 14 / 34 ».">
-    <div class="diapo"><p class="m-ariane">Partie 2 › Les trois types de charge › Charge extrinsèque</p><p class="m-dtitre">La charge extrinsèque</p><div class="m-corps"><p>Celle qu’ajoute la façon de présenter l’information, sans rien apprendre de plus.</p></div><p class="m-pied">14 / 34</p></div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Participants », avec en haut le fil d’Ariane « Partie 2 › Méthode › Participants ».">
+    <div class="diapo"><p class="m-ariane">Partie 2 › Méthode › Participants</p><p class="m-dtitre">Participants</p><div class="m-corps"><p>Le fil d’Ariane est au-dessus du titre.</p></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-charte">
@@ -468,10 +470,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Mêmes couleurs, mêmes polices, mêmes dispositions.</p>
     <p class="pourquoi">L&#x27;homogénéité graphique crée un environnement prévisible qui réduit l&#x27;anxiété et facilite le traitement de l&#x27;information.</p>
     
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Masque des diapositives : polices, couleurs et dispositions définies une fois, pour tout le diaporama.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Affichage > Masque des diapositives : polices, couleurs et dispositions définies une fois, pour tout le diaporama.</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple. À éviter : trois diapositives aux couleurs et polices toutes différentes. À privilégier : trois diapositives avec les mêmes couleurs, polices et dispositions.">
-    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="m-trip m-trip--inc"><div class="m-mini"><span>Introduction</span><i></i><i></i></div><div class="m-mini"><span>Méthode</span><i></i><i></i></div><div class="m-mini"><span>Résultats</span><i></i><i></i></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="m-trip"><div class="m-mini"><span>Introduction</span><i></i><i></i></div><div class="m-mini"><span>Méthode</span><i></i><i></i></div><div class="m-mini"><span>Résultats</span><i></i><i></i></div></div></div></div>
+  <figure class="exemple" role="img" aria-label="Mauvais exemple : trois diapositives aux couleurs et polices toutes différentes. Bon exemple : trois diapositives avec les mêmes couleurs, polices et dispositions.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="m-trip m-trip--inc"><div class="m-mini"><span>Introduction</span><i></i><i></i></div><div class="m-mini"><span>Méthode</span><i></i><i></i></div><div class="m-mini"><span>Résultats</span><i></i><i></i></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="m-trip"><div class="m-mini"><span>Introduction</span><i></i><i></i></div><div class="m-mini"><span>Méthode</span><i></i><i></i></div><div class="m-mini"><span>Résultats</span><i></i><i></i></div></div></div></div>
   </figure>
 </li></ol>
 </section>
@@ -484,10 +486,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Quelques points clés plutôt qu’un paragraphe.</p>
     <p class="pourquoi">Limiter la quantité d&#x27;informations sur chaque diapositive évite la surcharge cognitive. Mieux vaut des diapositives aérées que des diapositives denses.</p>
     
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.scolarius.com/">Scolarius</a> : collez le texte d’une diapositive, l’outil estime sa difficulté de lecture.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.scolarius.com/">Scolarius</a> : collez le texte d’une diapositive, l’outil estime sa difficulté de lecture.</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple. À éviter : un long paragraphe dense. À privilégier : trois points courts — « La charge cognitive » : La mémoire de travail est limitée. ; Au-delà, l’apprentissage échoue. ; Trois formes de charge, une seule utile..">
-    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo diapo--dense"><p class="m-dtitre">La charge cognitive</p><div class="m-corps"><p>La théorie de la charge cognitive postule que la mémoire de travail dispose de ressources limitées, que l’apprentissage échoue lorsque ces ressources sont dépassées, que la charge se décompose en trois formes distinctes dont l’une seulement est utile à l’apprentissage, et que la conception des supports doit donc viser à réduire la charge inutile tout en préservant la charge utile, ce qui suppose de hiérarchiser l’information.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">La charge cognitive</p><div class="m-corps"><ul class="m-ul"><li>La mémoire de travail est limitée.</li><li>Au-delà, l’apprentissage échoue.</li><li>Trois formes de charge, une seule utile.</li></ul></div></div></div></div>
+  <figure class="exemple" role="img" aria-label="Mauvais exemple : un long paragraphe qui remplit la diapositive. Bon exemple : trois lignes courtes : Peu de texte ; Une idée par ligne ; Facile à suivre.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo diapo--dense"><p class="m-dtitre">Trop de texte</p><div class="m-corps"><p>Une diapositive trop remplie oblige le public à lire pendant que vous parlez, si bien qu’il n’écoute plus vraiment, perd le fil de ce qui est dit, ne sait plus où porter son attention et finit par ne retenir presque rien de ce qui lui a été présenté.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo"><p class="m-dtitre">Peu de texte</p><div class="m-corps"><ul class="m-ul"><li>Une idée par ligne</li><li>Des phrases courtes</li><li>Facile à suivre</li></ul></div></div></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-decomposition">
@@ -496,10 +498,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Une idée complexe découpée en étapes.</p>
     <p class="pourquoi">Découper les concepts complexes permet de construire la compréhension étape par étape et réduit la surcharge cognitive.</p>
     
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.scolarius.com/">Scolarius</a> : une phrase jugée difficile est souvent une phrase à découper.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.scolarius.com/">Scolarius</a> : une phrase jugée difficile est souvent une phrase à découper.</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple. À éviter : tout le processus en une seule phrase longue. À privilégier : quatre étapes numérotées — « Le processus, étape par étape » : Perception : l’information arrive. ; Encodage : elle est mise en forme. ; Consolidation : elle se stabilise. ; Récupération : on la retrouve..">
-    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo diapo--dense"><p class="m-dtitre">Le processus</p><div class="m-corps"><p>L’information perçue est encodée puis consolidée en mémoire à long terme avant d’être récupérée lors du rappel, sous réserve que l’encodage ait été suffisamment profond.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Le processus, étape par étape</p><div class="m-corps"><ol class="m-ol"><li><span class="m-rond">1</span>Perception : l’information arrive.</li><li><span class="m-rond">2</span>Encodage : elle est mise en forme.</li><li><span class="m-rond">3</span>Consolidation : elle se stabilise.</li><li><span class="m-rond">4</span>Récupération : on la retrouve.</li></ol></div></div></div></div>
+  <figure class="exemple" role="img" aria-label="Mauvais exemple : toute la marche à suivre en une seule longue phrase. Bon exemple : quatre étapes numérotées : Ouvrir l’onglet Insertion ; Choisir Images ; Sélectionner le fichier ; Ajouter le texte de remplacement.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo"><p class="m-dtitre">Tout en une phrase</p><div class="m-corps"><p>Pour insérer une image, on ouvre l’onglet Insertion, on choisit Images, on sélectionne le fichier, puis on ajoute un texte de remplacement.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo"><p class="m-dtitre">Étape par étape</p><div class="m-corps"><ol class="m-ol"><li><span class="m-rond">1</span>Ouvrir l’onglet Insertion</li><li><span class="m-rond">2</span>Choisir Images</li><li><span class="m-rond">3</span>Sélectionner le fichier</li><li><span class="m-rond">4</span>Ajouter le texte de remplacement</li></ol></div></div></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-image">
@@ -508,10 +510,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Une image pertinente, décrite en mots, avec un texte de remplacement.</p>
     <p class="pourquoi">Limiter à une image ou un graphique par diapositive évite la surcharge visuelle et améliore la compréhension. L’image doit aussi porter un texte de remplacement : c’est lui que lit un lecteur d’écran.</p>
     
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">Comment faire</span><span>Clic droit sur l’image > Afficher le texte de remplacement. Décrivez en une ou deux phrases ce que l’image apporte (par exemple « Courbe : la performance chute au-delà de sept éléments »), sans recopier le nom du fichier. Une image purement décorative se marque « Décorative ».</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale les images sans texte de remplacement.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Clic droit sur l’image > Afficher le texte de remplacement. Décrivez en une ou deux phrases ce que l’image apporte (par exemple « Courbe : la performance chute au-delà de sept éléments »), sans recopier le nom du fichier. Une image purement décorative se marque « Décorative ».</span></li><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale les images sans texte de remplacement.</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple. À éviter : quatre images sans légende. À privilégier : une seule image, accompagnée d’une phrase qui la décrit — « Résultats » : 1 image ; La performance chute au-delà de sept éléments présentés simultanément..">
-    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo"><p class="m-dtitre">Résultats</p><div class="m-corps"><div class="m-images m-images--4"><span></span><span></span><span></span><span></span></div></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">Résultats</p><div class="m-corps"><div class="m-images m-images--1"><span></span></div><p>La performance chute au-delà de sept éléments présentés simultanément.</p></div></div></div></div>
+  <figure class="exemple" role="img" aria-label="Mauvais exemple : quatre images sans légende. Bon exemple : une seule image, avec une phrase qui la décrit.">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo"><p class="m-dtitre">Quatre images</p><div class="m-corps"><div class="m-images m-images--4"><span></span><span></span><span></span><span></span></div></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo"><p class="m-dtitre">Une seule image</p><div class="m-corps"><div class="m-images m-images--1"><span></span></div><p>Une phrase décrit l’image.</p></div></div></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-explicite">
@@ -520,10 +522,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Pas de sous-entendu.</p>
     <p class="pourquoi">La clarté du langage facilite la compréhension pour tous, et évite aux personnes autistes d’avoir à décoder l’implicite.</p>
     
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.scolarius.com/">Scolarius</a> repère les phrases longues et les mots rares, souvent ceux où se cache l’implicite.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">En ligne</span><span><a href="https://www.scolarius.com/">Scolarius</a> repère les phrases longues et les mots rares, souvent ceux où se cache l’implicite.</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple. À éviter : Vous voyez bien où je veux en venir… le reste coule de source.. À privilégier : Quand la charge cognitive augmente, la performance diminue. C’est la relation à retenir. — « À retenir » : Quand la charge cognitive augmente, la performance diminue. C’est la relation à retenir..">
-    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> À éviter</p><div class="diapo"><p class="m-dtitre">À retenir</p><div class="m-corps"><p>Vous voyez bien où je veux en venir… le reste coule de source.</p></div></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> À privilégier</p><div class="diapo"><p class="m-dtitre">À retenir</p><div class="m-corps"><p>Quand la charge cognitive augmente, la performance diminue. C’est la relation à retenir.</p></div></div></div></div>
+  <figure class="exemple" role="img" aria-label="Mauvais exemple : « Il faudrait penser à rendre le dossier assez vite. » Bon exemple : « Rendez le dossier vendredi avant 17 h. »">
+    <div class="duo"><div class="duo-bloc duo-bloc--non"><p class="duo-etq"><span aria-hidden="true">✕</span> Mauvais exemple</p><div class="diapo diapo--centre"><p>Il faudrait penser à rendre le dossier assez vite.</p></div></div><div class="duo-bloc duo-bloc--oui"><p class="duo-etq"><span aria-hidden="true">✓</span> Bon exemple</p><div class="diapo diapo--centre"><p>Rendez le dossier vendredi avant 17 h.</p></div></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-acronymes">
@@ -534,8 +536,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     
     
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Vocabulaire de la présentation » : CUA : Conception universelle de l’apprentissage ; TND : Trouble du neurodéveloppement ; MDPH : Maison départementale des personnes handicapées.">
-    <div class="diapo"><p class="m-dtitre">Vocabulaire de la présentation</p><div class="m-corps"><p class="m-champ"><span>CUA</span>Conception universelle de l’apprentissage</p><p class="m-champ"><span>TND</span>Trouble du neurodéveloppement</p><p class="m-champ"><span>MDPH</span>Maison départementale des personnes handicapées</p></div></div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Acronymes » : TND : Trouble du neurodéveloppement ; MDPH : Maison départementale des personnes handicapées.">
+    <div class="diapo"><p class="m-dtitre">Acronymes</p><div class="m-corps"><p class="m-champ"><span>TND</span>Trouble du neurodéveloppement</p><p class="m-champ"><span>MDPH</span>Maison départementale des personnes handicapées</p></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-glossaire">
@@ -546,8 +548,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     
     
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Glossaire » : Encodage : Mise en forme initiale d’une information. ; Consolidation : Stabilisation de la trace en mémoire. ; Rappel indicé : Récupération aidée par un indice..">
-    <div class="diapo"><p class="m-dtitre">Glossaire</p><div class="m-corps"><p class="m-champ"><span>Encodage</span>Mise en forme initiale d’une information.</p><p class="m-champ"><span>Consolidation</span>Stabilisation de la trace en mémoire.</p><p class="m-champ"><span>Rappel indicé</span>Récupération aidée par un indice.</p></div></div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Glossaire » : Empattement : petit trait au bout des lettres. Contraste : écart de luminosité entre le texte et le fond.">
+    <div class="diapo"><p class="m-dtitre">Glossaire</p><div class="m-corps"><p class="m-champ"><span>Empattement</span>Petit trait au bout des lettres.</p><p class="m-champ"><span>Contraste</span>Écart de luminosité entre le texte et le fond.</p></div></div>
   </figure>
 </li>
 <li class="regle" id="pp-soustitres">
@@ -556,10 +558,10 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="resume">Toutes les vidéos, y compris les extraits courts.</p>
     <p class="pourquoi">Les sous-titres aident les personnes ayant des difficultés de traitement auditif ou de compréhension d’une langue, et permettent un meilleur suivi du contenu.</p>
     <p class="etoile"><span aria-hidden="true">★</span> Jugée plus pertinente encore par les étudiants autistes</p>
-    <div class="verifier"><p class="verifier-titre">Pour vérifier</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale les vidéos insérées sans sous-titres.</span></li></ul></div>
+    <div class="verifier"><p class="verifier-titre">Comment faire ?</p><ul><li class="outil"><span class="outil-etq">PowerPoint</span><span>Révision > Vérifier l’accessibilité signale les vidéos insérées sans sous-titres.</span></li></ul></div>
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Extrait : entretien clinique » : une vidéo sous-titrée : « Ce que je décris là, c’est la charge que représente une consigne implicite. » ; en pied de page : « 18 / 34 ».">
-    <div class="diapo"><p class="m-dtitre">Extrait : entretien clinique</p><div class="m-corps"><div class="m-video"><span class="m-play">▶</span><span class="m-st">« Ce que je décris là, c’est la charge que représente une consigne implicite. »</span></div></div><p class="m-pied">18 / 34</p></div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Vidéo sous-titrée » : une vidéo avec le sous-titre « Bonjour et bienvenue à tous. »">
+    <div class="diapo"><p class="m-dtitre">Vidéo sous-titrée</p><div class="m-corps"><div class="m-video"><span class="m-play">▶</span><span class="m-st">Bonjour et bienvenue à tous.</span></div></div></div>
   </figure>
 </li></ol>
 </section>
@@ -574,8 +576,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     
     
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple de courriel, objet « Support de la présentation de mardi » : Bonjour à tous, ; Vous trouverez en pièce jointe le diaporama complet de notre présentation de mardi : les 34 diapositives qui seront projetées, dans l’ordre. ; Bonne lecture, Camille ; Pièce jointe : presentation-charge-cognitive.pptx">
-    <div class="m-mail"><div class="m-mail-tete"><p class="m-mail-l"><span>De</span>Camille Martin</p><p class="m-mail-l"><span>À</span>Groupe TD 3</p><p class="m-mail-l"><span>Objet</span>Support de la présentation de mardi</p></div><div class="m-corps"><p>Bonjour à tous,</p><p>Vous trouverez en pièce jointe le diaporama complet de notre présentation de mardi : les 34 diapositives qui seront projetées, dans l’ordre.</p><p>Bonne lecture, Camille</p><p class="m-titre">Pièce jointe : presentation-charge-cognitive.pptx</p></div></div>
+  <figure class="exemple" role="img" aria-label="Exemple de courriel, objet « Support de la présentation de mardi » : Bonjour, vous trouverez le diaporama en pièce jointe. Pièce jointe : presentation.pptx">
+    <div class="m-mail"><div class="m-mail-tete"><p class="m-mail-l"><span>De</span>Camille Martin</p><p class="m-mail-l"><span>À</span>Groupe TD 3</p><p class="m-mail-l"><span>Objet</span>Support de la présentation de mardi</p></div><div class="m-corps"><p>Bonjour, vous trouverez le diaporama en pièce jointe.</p><p class="m-titre">Pièce jointe : presentation.pptx</p></div></div>
   </figure>
 </li>
 <li class="regle" id="co-prerequis">
@@ -586,8 +588,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     
     
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple de courriel, objet « Pour suivre la présentation du 12 novembre » : Bonjour à tous, ; Trois notions vous seront utiles pour suivre : ; Mémoire de travail : le modèle de Baddeley. ; Attention sélective : définition. ; Effet de récence : le rappel libre. ; Un rappel de 4 pages est joint si besoin.">
-    <div class="m-mail"><div class="m-mail-tete"><p class="m-mail-l"><span>De</span>Camille Martin</p><p class="m-mail-l"><span>À</span>Groupe TD 3</p><p class="m-mail-l"><span>Objet</span>Pour suivre la présentation du 12 novembre</p></div><div class="m-corps"><p>Bonjour à tous,</p><p>Trois notions vous seront utiles pour suivre :</p><ul class="m-ul"><li>Mémoire de travail : le modèle de Baddeley.</li><li>Attention sélective : définition.</li><li>Effet de récence : le rappel libre.</li></ul><p>Un rappel de 4 pages est joint si besoin.</p></div></div>
+  <figure class="exemple" role="img" aria-label="Exemple de courriel, objet « Prérequis pour la présentation de mardi » : Pour suivre, il faut connaître : les notions du chapitre 1 ; les notions du chapitre 2.">
+    <div class="m-mail"><div class="m-mail-tete"><p class="m-mail-l"><span>De</span>Camille Martin</p><p class="m-mail-l"><span>À</span>Groupe TD 3</p><p class="m-mail-l"><span>Objet</span>Prérequis pour la présentation de mardi</p></div><div class="m-corps"><p>Pour suivre, il faut connaître :</p><ul class="m-ul"><li>les notions du chapitre 1 ;</li><li>les notions du chapitre 2.</li></ul></div></div>
   </figure>
 </li>
 <li class="regle" id="co-plan">
@@ -598,8 +600,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     
     
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Le déroulé » : 10 h 00 : Introduction ; 10 h 05 : Les trois types de charge cognitive ; 10 h 25 : Un exemple concret ; 10 h 40 : Synthèse et questions.">
-    <div class="diapo"><p class="m-dtitre">Le déroulé</p><div class="m-corps"><p class="m-champ"><span>10 h 00</span>Introduction</p><p class="m-champ"><span>10 h 05</span>Les trois types de charge cognitive</p><p class="m-champ"><span>10 h 25</span>Un exemple concret</p><p class="m-champ"><span>10 h 40</span>Synthèse et questions</p></div></div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Déroulé » : 10 h 00 : Introduction ; 10 h 05 : Première partie ; 10 h 25 : Deuxième partie ; 10 h 40 : Questions.">
+    <div class="diapo"><p class="m-dtitre">Déroulé</p><div class="m-corps"><p class="m-champ"><span>10 h 00</span>Introduction</p><p class="m-champ"><span>10 h 05</span>Première partie</p><p class="m-champ"><span>10 h 25</span>Deuxième partie</p><p class="m-champ"><span>10 h 40</span>Questions</p></div></div>
   </figure>
 </li>
 <li class="regle" id="en-annotation">
@@ -610,8 +612,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     <p class="etoile"><span aria-hidden="true">★</span> Jugée plus pertinente encore par les étudiants autistes</p>
     
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Les trois types de charge » : Intrinsèque : liée à la difficulté du contenu. ; Extrinsèque : liée à la présentation. ; Essentielle : celle qui construit l’apprentissage. ; une colonne « Vos notes » à droite pour écrire ; en pied de page : « 12 / 34 ».">
-    <div class="diapo"><p class="m-dtitre">Les trois types de charge</p><div class="m-corps"><div class="m-marge"><div><ul class="m-ul"><li>Intrinsèque : liée à la difficulté du contenu.</li><li>Extrinsèque : liée à la présentation.</li><li>Essentielle : celle qui construit l’apprentissage.</li></ul></div><div class="m-notes"><span>Vos notes</span><i></i><i></i><i></i></div></div></div><p class="m-pied">12 / 34</p></div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Support annotable » : trois points à gauche et une colonne « Vos notes » à droite pour écrire.">
+    <div class="diapo"><p class="m-dtitre">Support annotable</p><div class="m-corps"><div class="m-marge"><div><ul class="m-ul"><li>Premier point</li><li>Deuxième point</li><li>Troisième point</li></ul></div><div class="m-notes"><span>Vos notes</span><i></i><i></i><i></i></div></div></div></div>
   </figure>
 </li>
 <li class="regle" id="en-notes-individuelles">
@@ -622,8 +624,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     
     
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple, à dire pendant la présentation : Je m’arrête deux minutes. Notez ce que vous retenez de cette partie ; je ne parle pas pendant ce temps, et je reprends après.">
-    <div class="m-doc"><p class="m-support">À dire pendant la présentation</p><div class="m-corps"><blockquote>Je m’arrête deux minutes. Notez ce que vous retenez de cette partie ; je ne parle pas pendant ce temps, et je reprends après.</blockquote></div></div>
+  <figure class="exemple" role="img" aria-label="Exemple, à dire pendant la présentation : Je m’arrête deux minutes pour que vous preniez des notes. Je ne parle pas pendant ce temps.">
+    <div class="m-doc"><p class="m-support">À dire pendant la présentation</p><div class="m-corps"><blockquote>Je m’arrête deux minutes pour que vous preniez des notes. Je ne parle pas pendant ce temps.</blockquote></div></div>
   </figure>
 </li>
 <li class="regle" id="en-questions">
@@ -634,8 +636,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     
     
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple, à dire en ouverture : Vous pouvez poser une question à trois moments : à la fin de chaque partie en levant la main, pendant le temps de questions final, ou par écrit dans le document partagé. Aucune question n’est trop simple.">
-    <div class="m-doc"><p class="m-support">À dire en ouverture</p><div class="m-corps"><blockquote>Vous pouvez poser une question à trois moments : à la fin de chaque partie en levant la main, pendant le temps de questions final, ou par écrit dans le document partagé. Aucune question n’est trop simple.</blockquote></div></div>
+  <figure class="exemple" role="img" aria-label="Exemple, à dire en ouverture : Posez vos questions à la fin de chaque partie, en levant la main. Toutes les questions sont les bienvenues.">
+    <div class="m-doc"><p class="m-support">À dire en ouverture</p><div class="m-corps"><blockquote>Posez vos questions à la fin de chaque partie, en levant la main. Toutes les questions sont les bienvenues.</blockquote></div></div>
   </figure>
 </li>
 <li class="regle" id="co-rappel">
@@ -646,8 +648,8 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
     
     
   </div>
-  <figure class="exemple" role="img" aria-label="Exemple de diapositive « Ce qu’il faut retenir » : La mémoire de travail traite peu d’éléments à la fois. ; Au-delà, on ne retient plus. ; Un support structuré libère des ressources pour comprendre..">
-    <div class="diapo"><p class="m-dtitre">Ce qu’il faut retenir</p><div class="m-corps"><ol class="m-ol"><li><span class="m-rond">1</span>La mémoire de travail traite peu d’éléments à la fois.</li><li><span class="m-rond">2</span>Au-delà, on ne retient plus.</li><li><span class="m-rond">3</span>Un support structuré libère des ressources pour comprendre.</li></ol></div></div>
+  <figure class="exemple" role="img" aria-label="Exemple de diapositive « À retenir » : 1 Un texte lisible ; 2 Des repères clairs ; 3 Un contenu allégé.">
+    <div class="diapo"><p class="m-dtitre">À retenir</p><div class="m-corps"><ol class="m-ol"><li><span class="m-rond">1</span>Un texte lisible</li><li><span class="m-rond">2</span>Des repères clairs</li><li><span class="m-rond">3</span>Un contenu allégé</li></ol></div></div>
   </figure>
 </li></ol>
 </section>
