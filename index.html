@@ -12,8 +12,8 @@
 /* Mise en page : une colonne de lecture ; chaque règle = texte à gauche,
    diapositive d'exemple à droite (empilés sur téléphone). Palette Uni'Access. */
 :root {
-  --fond: #FFFFFF;
-  --surface: #F4F7FB;
+  --fond: #F5F3EE;
+  --surface: #ECEAE3;
   --texte: #1A1A1A;
   --doux: #46505A;
   --titre: #10243F;
@@ -208,12 +208,9 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
 .toc-partie { font-weight: 700; color: var(--titre); }
 .toc-t { min-width: 0; }
 .toc-partie::after { content: none; }
-.toc a .toc-p, .toc li li a::after { margin-left: auto; }
 .toc-partie .toc-t { flex: 0 1 auto; }
 .toc-partie { position: relative; }
-.toc-partie .toc-p { flex: none; font-weight: 600; color: var(--doux); font-size: .92rem; font-variant-numeric: tabular-nums; }
 .toc-partie .toc-t::after, .toc li li .toc-t::after { content: ''; }
-.toc a .toc-fil { flex: 1 1 2rem; border-bottom: 2px dotted var(--bord); transform: translateY(-4px); min-width: 1rem; }
 .toc li li a { padding-left: 1.8rem; font-size: .98rem; }
 .toc-n { flex: none; min-width: 1.6rem; color: var(--doux); font-variant-numeric: tabular-nums; }
 .toc-partie .toc-n { color: var(--bleu); }
@@ -290,7 +287,7 @@ h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.01
 
   <nav class="toc" aria-labelledby="toc-titre">
     <h2 id="toc-titre">Sommaire</h2>
-    <ol><li><a href="#contexte" class="toc-partie"><span class="toc-n">1.</span><span class="toc-t">Contexte</span></a></li><li><a href="#regles" class="toc-partie"><span class="toc-n">2.</span><span class="toc-t">Les règles d’accessibilité pour une présentation</span><span class="toc-fil" aria-hidden="true"></span><span class="toc-p">25 points</span></a><ol><li><a href="#lisibilite"><span class="toc-n">2.1</span><span class="toc-t">Rendre le texte lisible</span></a></li><li><a href="#reperes"><span class="toc-n">2.2</span><span class="toc-t">Donner des repères</span></a></li><li><a href="#contenu"><span class="toc-n">2.3</span><span class="toc-t">Alléger le contenu</span></a></li><li><a href="#oral"><span class="toc-n">2.4</span><span class="toc-t">Présenter à l’oral</span></a></li></ol></li><li><a href="#grille" class="toc-partie"><span class="toc-n">3.</span><span class="toc-t">Grille d’évaluation</span><span class="toc-fil" aria-hidden="true"></span><span class="toc-p">score</span></a></li><li><a href="#glossaire" class="toc-partie"><span class="toc-n">4.</span><span class="toc-t">Glossaire</span><span class="toc-fil" aria-hidden="true"></span><span class="toc-p">14 termes</span></a></li></ol>
+    <ol><li><a href="#contexte" class="toc-partie"><span class="toc-n">1.</span><span class="toc-t">Contexte</span></a></li><li><a href="#regles" class="toc-partie"><span class="toc-n">2.</span><span class="toc-t">Les règles d’accessibilité pour une présentation</span></a><ol><li><a href="#lisibilite"><span class="toc-n">2.1</span><span class="toc-t">Rendre le texte lisible</span></a></li><li><a href="#reperes"><span class="toc-n">2.2</span><span class="toc-t">Donner des repères</span></a></li><li><a href="#contenu"><span class="toc-n">2.3</span><span class="toc-t">Alléger le contenu</span></a></li><li><a href="#oral"><span class="toc-n">2.4</span><span class="toc-t">Présenter à l’oral</span></a></li></ol></li><li><a href="#grille" class="toc-partie"><span class="toc-n">3.</span><span class="toc-t">Grille d’évaluation</span></a></li><li><a href="#glossaire" class="toc-partie"><span class="toc-n">4.</span><span class="toc-t">Glossaire</span></a></li></ol>
   </nav>
 
   <section class="partie" id="contexte" aria-labelledby="contexte-titre">
